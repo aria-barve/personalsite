@@ -4,126 +4,778 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aria Barve</title>
-  <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      font-family: Georgia, serif;
-      display: flex;
-      justify-content: center;
-      padding-top: 80px;
-      padding-bottom: 80px;
+    :root {
+      --pink-50: #fbeaf0;
+      --pink-100: #f4c0d1;
+      --pink-200: #ed93b1;
+      --pink-400: #d4537e;
+      --pink-600: #993556;
+      --pink-800: #72243e;
+      --pink-900: #4b1528;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --border: #e8e8e8;
+      --bg: #ffffff;
+      --bg-surface: #fafafa;
     }
 
-    .container {
-      width: 900px;
-      border: 1px solid #000;
-      padding: 40px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Animated background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 10% 20%, rgba(212,83,126,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 600px at 90% 80%, rgba(237,147,177,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 5rem;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--pink-600);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--pink-400); }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 6rem;
+      padding-bottom: 5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink-400);
+      margin-bottom: 1.25rem;
     }
 
     h1 {
-      text-align: center;
-      font-size: 32px;
-      margin: 0;
-      font-weight: 700;
-      color: #de369d;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+      color: var(--text);
     }
 
-    .subtitle {
-      text-align: center;
+    h1 em {
       font-style: italic;
-      margin-top: 6px;
+      color: var(--pink-400);
+    }
+
+    .hero-desc {
       font-size: 16px;
-      color: #de369d;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
 
-    .blog-link {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 15px;
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .blog-link a {
-      color: #de369d;
+    .tag {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 0.5px solid var(--pink-200);
+      background: var(--pink-50);
+      color: var(--pink-600);
+    }
+
+    .hero-aside {
+      text-align: right;
+    }
+
+    .hero-aside p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-aside a {
+      color: var(--pink-400);
       text-decoration: none;
-      border-bottom: 1px solid #de369d;
+      font-size: 13px;
     }
 
-    hr {
-      margin: 32px 0;
-      border: none;
-      border-top: 1px solid #de369d;
-    }
+    .hero-aside a:hover { text-decoration: underline; }
 
-    .grid {
+    /* ── Featured ── */
+    .featured-block {
+      background: var(--pink-50);
+      border: 0.5px solid var(--pink-200);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 5rem;
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 40px;
-      font-size: 15px;
-      line-height: 1.55;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
     }
 
-    h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #de369d;
+    .featured-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink-400);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
     }
 
-    a {
-      color: #de369d;
-      text-decoration: underline;
+    .featured-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--pink-800);
+      margin-bottom: 0.5rem;
     }
 
-    p {
-      color: #de369d;
+    .featured-desc {
+      font-size: 14px;
+      color: var(--pink-600);
     }
 
-    .section {
-      margin-bottom: 24px;
+    .featured-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: right;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--pink-800);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--pink-400);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    /* ── Experience ── */
+    .exp-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 5rem;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 0.5px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .exp-item:first-child { padding-top: 0; }
+
+    .exp-meta {
+      padding-top: 2px;
+    }
+
+    .exp-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .exp-org {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--pink-400);
+    }
+
+    .exp-content {}
+
+    .exp-role {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+    }
+
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 6px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--pink-200);
+      font-size: 12px;
+      top: 2px;
+    }
+
+    .highlight {
+      color: var(--pink-600);
+      font-weight: 500;
+    }
+
+    /* ── Two column lower ── */
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+    }
+
+    /* ── Skills ── */
+    .skills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-chip {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: var(--bg-surface);
+      border: 0.5px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    /* ── Activities ── */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .activity-item:last-child { border-bottom: none; }
+
+    .act-bar {
+      width: 3px;
+      height: 36px;
+      background: linear-gradient(to bottom, var(--pink-200), var(--pink-50));
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .act-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .act-text span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Awards ── */
+    .awards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .award-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .award-star {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--pink-50);
+      border: 0.5px solid var(--pink-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--pink-400);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .award-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Leadership ── */
+    .leadership-card {
+      background: var(--bg-surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .lead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .lead-role {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .lead-date {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .lead-org {
+      font-size: 12px;
+      color: var(--pink-400);
+      margin-bottom: 8px;
+    }
+
+    .lead-bullets {
+      list-style: none;
+    }
+
+    .lead-bullets li {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 4px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .lead-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--pink-200);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 2rem 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--pink-400);
+      text-decoration: none;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.35s; }
+    .delay-4 { animation-delay: 0.5s; }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { text-align: left; }
+      .featured-block { grid-template-columns: 1fr; }
+      .featured-stats { flex-direction: row; text-align: left; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .lower-grid { grid-template-columns: 1fr; gap: 3rem; }
+      nav { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>ARIA BARVE</h1>
-    <div class="subtitle">CS & Applied Math @ Yale</div>
-    <div class="blog-link"><a href="#">Blog →</a></div>
+  <div class="wrapper">
 
-    <hr>
+    <!-- Nav -->
+    <nav class="fade-up">
+      <a href="#" class="nav-logo">Aria Barve</a>
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="mailto:aria.barve@yale.edu">Contact</a></li>
+        <li><a href="#">Blog →</a></li>
+      </ul>
+    </nav>
 
-    <div class="grid">
+    <!-- Hero -->
+    <section class="hero fade-up delay-1">
       <div>
-        <div class="section">
-          <h2>About</h2>
-          <p>
-            Freshman at Yale studying Computer Science and Applied Mathematics
-          </p>
-        </div>
-
-        <div class="section">
-          <h2>Experience & Projects</h2>
-          <p><strong>Research Intern</strong> – <a href="https://dpi.uillinois.edu/applied-research/">Discovery Partners Institute</a> (Jun 2024 – Aug 2024)</p>
-          <p><strong>Research Intern @ Northwestern Feinberg</strong> – <a href="#">Cross-Species Word Recognition Using SVM-Based Cochlear Implant Coding Strategies</a> (May 2023 – Dec 2024)</p>
+        <p class="hero-eyebrow">Yale University · CS & Economics · Class of 2029</p>
+        <h1>Aria<br><em>Barve.</em></h1>
+        <p class="hero-desc">
+          Freshman at Yale studying Computer Science and Economics.
+          Building things that work — from AI-powered recipe apps to cochlear implant ML models.
+          Researcher, founder, and figure skater.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">AI / ML</span>
+          <span class="tag">Full Stack Dev</span>
+          <span class="tag">Research</span>
+          <span class="tag">Founder</span>
+          <span class="tag">NLP</span>
         </div>
       </div>
+      <div class="hero-aside">
+        <p>New Haven, CT</p>
+        <p>aria.barve@yale.edu</p>
+        <p style="margin-top: 12px;"><a href="https://www.linkedin.com/in/ariabarve">LinkedIn ↗</a></p>
+        <p><a href="#">GitHub ↗</a></p>
+      </div>
+    </section>
 
+    <!-- Featured: 21Meals -->
+    <div class="featured-block fade-up delay-2">
       <div>
-        <div class="section">
-          <h2>Social Media</h2>
-          <p><a href="https://www.linkedin.com/ariabarve">LinkedIn</a></p>
-          <p><a href="#">GitHub</a></p>
+        <p class="featured-label">Featured Project · Founder · Apr 2024 – present</p>
+        <div class="featured-name">21Meals</div>
+        <p class="featured-desc">
+          AI-powered recipe generation web app — input your ingredients, get a recipe.
+          Consumer app in progress, backed by Yale.
+        </p>
+      </div>
+      <div class="featured-stats">
+        <div>
+          <div class="stat-num">60K+</div>
+          <div class="stat-label">site visits</div>
         </div>
-
-        <div class="section">
-          <h2>Contact</h2>
-          <p>aria.barve@yale.edu</p>
-          <p>New Haven, CT</p>
+        <div>
+          <div class="stat-num">20+</div>
+          <div class="stat-label">countries</div>
+        </div>
+        <div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">continents</div>
         </div>
       </div>
     </div>
+
+    <!-- Experience -->
+    <section id="experience" class="fade-up delay-3">
+      <div class="section-header">
+        <h2>Experience</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="exp-grid">
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-date">Aug 2024 – May 2025</p>
+            <p class="exp-org">Illinois Math & Science Academy</p>
+          </div>
+          <div class="exp-content">
+            <p class="exp-role">Research Intern</p>
+            <ul class="exp-bullets">
+              <li>Used Seesar / AlphaFold to target functional groups for COVID vaccine research</li>
+              <li>Conducted microbial testing to isolate antibiotics for ESKAPE pathogens; presented at the international <span class="highlight">UW Madison TinyEarth Microbial Symposium</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-date">May 2023 – Dec 2024</p>
+            <p class="exp-org">Northwestern Feinberg School of Medicine</p>
+          </div>
+          <div class="exp-content">
+            <p class="exp-role">Research Intern</p>
+            <ul class="exp-bullets">
+              <li>Built SVM-based ML models to analyze and classify neural response data for cochlear implant algorithm improvement</li>
+              <li>Achieved <span class="highlight">&gt;70% accuracy</span> matching neural representations to spoken word patterns</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-date">Jun 2024 – Aug 2024</p>
+            <p class="exp-org">Discovery Partners Institute</p>
+          </div>
+          <div class="exp-content">
+            <p class="exp-role">Research Intern</p>
+            <ul class="exp-bullets">
+              <li>Researched use cases and built test suites for a Bluetooth social networking mobile app</li>
+              <li>Presented to <span class="highlight">60+ delegates</span> from National University of Singapore</li>
+              <li>Co-authored paper accepted to <span class="highlight">IEEE 2025 COMPSAC</span> Symposium on Human & Social Computing</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-date">Jun 2022 – Aug 2022</p>
+            <p class="exp-org">FHL Vive Center for Enhanced Reality · UC Berkeley</p>
+          </div>
+          <div class="exp-content">
+            <p class="exp-role">Research Intern</p>
+            <ul class="exp-bullets">
+              <li>Worked with the UC Berkeley ROAR (Robot Open Autonomous Racing) team to develop miniature autonomous vehicles</li>
+              <li>Produced car racing tool-kits for California public school students</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section id="leadership" style="margin-bottom: 5rem;" class="fade-up delay-3">
+      <div class="section-header">
+        <h2>Leadership</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="leadership-card">
+        <div class="lead-top">
+          <span class="lead-role">Co-President</span>
+          <span class="lead-date">Sep 2022 – May 2025</span>
+        </div>
+        <p class="lead-org">Girls Who Code</p>
+        <ul class="lead-bullets">
+          <li>Managed local chapter of 60+ members; grew membership by ~300%</li>
+          <li>Partnered with Aurora, IL public schools to run tutoring programs for 50+ underserved students</li>
+        </ul>
+      </div>
+
+      <div class="leadership-card">
+        <div class="lead-top">
+          <span class="lead-role">CFO</span>
+          <span class="lead-date">Sep 2022 – May 2025</span>
+        </div>
+        <p class="lead-org">IMSA.AI</p>
+        <ul class="lead-bullets">
+          <li>Managed growth for one of the only US high school student-led computing clusters (EPOCH)</li>
+          <li>Developed AI/ML applications for the IMSA community; led AI basics classes for 40+ students</li>
+          <li>Wrote grant proposals, managed financials, met with sponsors and developed budget breakdowns</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Lower grid: Skills + Yale Activities + Awards -->
+    <div class="lower-grid fade-up delay-4">
+      <div>
+        <div class="section-header">
+          <h2>At Yale</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="act-bar"></div>
+            <div class="act-text">
+              <strong>Women's Leadership Initiative</strong>
+              <span>Conference Committee</span>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-bar"></div>
+            <div class="act-text">
+              <strong>Healthcare Consulting Collective</strong>
+              <span>Analyst</span>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-bar"></div>
+            <div class="act-text">
+              <strong>Entrepreneurial Society</strong>
+              <span>Fellow</span>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-bar"></div>
+            <div class="act-text">
+              <strong>Yale Daily News</strong>
+              <span>Software Developer</span>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-bar"></div>
+            <div class="act-text">
+              <strong>Club Figure Skating</strong>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <h2>Skills</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skills-cloud" style="margin-bottom: 2.5rem;">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Java</span>
+          <span class="skill-chip">R</span>
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">HTML / CSS</span>
+          <span class="skill-chip">SQL</span>
+          <span class="skill-chip">LISP</span>
+          <span class="skill-chip">ML / SVM</span>
+          <span class="skill-chip">NLP</span>
+          <span class="skill-chip">Agentic AI</span>
+          <span class="skill-chip">Full Stack Dev</span>
+          <span class="skill-chip">Google Cloud</span>
+          <span class="skill-chip">GitHub</span>
+          <span class="skill-chip">UNIX</span>
+        </div>
+
+        <div class="section-header">
+          <h2>Awards</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="awards-list">
+          <div class="award-item">
+            <div class="award-star">★</div>
+            <p class="award-text">NCWIT Aspirations in Computing Affiliate Winner</p>
+          </div>
+          <div class="award-item">
+            <div class="award-star">★</div>
+            <p class="award-text">IJAS State Science Fair Silver Medal — Computer Science</p>
+          </div>
+          <div class="award-item">
+            <div class="award-star">★</div>
+            <p class="award-text">Raytheon Technologies National Invention Convention — 2× Finalist</p>
+          </div>
+          <div class="award-item">
+            <div class="award-star">★</div>
+            <p class="award-text">MIT IDSS Data Science & Machine Learning Certification</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Aria Barve</p>
+      <p><a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a> · <a href="https://www.linkedin.com/in/ariabarve">LinkedIn</a> · <a href="#">GitHub</a></p>
+    </footer>
+
   </div>
 </body>
 </html>
