@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adding Social Features to Netflix</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E50914;
+    --dark: #141414;
+    --text: #f0ece4;
+    --muted: #999;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: #1c1c1c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0a;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 48px 20px;
+  }
+
+  /* Outer card */
+  .card {
+    max-width: 740px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  /* Header */
+  .post-header {
+    background: #000;
+    padding: 48px 52px 44px;
+    border-bottom: 3px solid var(--red);
+  }
+
+  .post-meta {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  .post-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 60px);
+    line-height: 1.0;
+    color: var(--text);
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+
+  /* Body */
+  .post-body {
+    padding: 48px 52px 64px;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--text);
+    border-left: 3px solid var(--red);
+    padding-left: 14px;
+    margin: 52px 0 18px;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 36px 0 10px;
+  }
+
+  p {
+    margin-bottom: 18px;
+    color: rgba(240,236,228,0.82);
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; color: var(--text); }
+
+  ol, ul {
+    margin: 0 0 18px;
+    padding-left: 22px;
+    color: rgba(240,236,228,0.82);
+  }
+
+  li { margin-bottom: 10px; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 28px 0;
+  }
+
+  th {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  th:first-child { background: #0d0d0d; }
+
+  td {
+    border: 1px solid #2a2a2a;
+    padding: 12px 14px;
+    vertical-align: top;
+    color: rgba(240,236,228,0.78);
+    background: #161616;
+  }
+
+  td:first-child {
+    font-weight: 600;
+    color: var(--red);
+    background: #111;
+    font-size: 13px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  td ul { margin: 0; padding-left: 16px; }
+  td ul li { margin-bottom: 6px; }
+
+  /* Feature tags */
+  .feature-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Images */
+  img {
+    width: 100%;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    margin: 20px 0;
+  }
+
+  /* Footer */
+  .post-footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 20px 52px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Barlow', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="post-header">
+    <h1>Adding Social Features to <span style="color: red;">Netflix</span></h1>
+  </div>
+
+  <div class="post-body">
+
+    <h2>Why Add Social Features?</h2>
+
+    <p>With over 325 million subscribers and one of the strongest content libraries, Netflix has spent the last decade perfecting its solo viewing experience. From features like autoplay to personalized recommendations, Netflix's design decisions are optimized for one person. But the way people relate to Netflix's content has shifted. Moments from <em>Squid Game</em> and <em>Wednesday</em> get discussed and shared across every social platform except the one where people actually watched them. Netflix is driving cultural conversation without capturing any of it.</p>
+
+    <p>The opportunity is clear: social features that bring the conversation back to Netflix. This would serve two business goals simultaneously. First, social features would attract new users through network effects (if your friends are watching together on Netflix then you need Netflix). Second, social features increase engagement among existing users by giving them more reasons to stay on the platform longer.</p>
+
+    <h2>Who Are These Social Features For?</h2>
+
+    <p>Before designing anything, it's worth thinking about which users this problem affects the most. Netflix's user base can be segmented in several ways (age, geographic location, viewing behavior, etc.) but the most useful segmentation here is social context. Who are people watching with, and what do they want from that experience?</p>
+
+    <p>Three segments stand out:</p>
+
+    <ol>
+      <li><strong>Co-watchers</strong> are users who already share a viewing experience. This could be couples watching from different cities, friend groups coordinating watch parties over text, or families picking a movie together. Their pain point isn't discovery. It's coordination. They want Netflix to do what they're currently doing manually across other apps.</li>
+      <li><strong>Culturally motivated viewers</strong> watch to participate in a broader social conversation. They're users posting reactions on apps like Twitter or Reddit. They're engaged with Netflix's content, just not on Netflix.</li>
+      <li><strong>Solo viewers</strong> are the largest group by volume but the weakest target for social features. They're on Netflix for passive consumption, and adding social friction to their experience risks annoying them without upside.</li>
+    </ol>
+
+    <p>I believe the right design approach would be to build for co-watchers and culturally motivated viewers with enough optionality that solo browsers can ignore social features entirely.</p>
+
+    <h2>Features Landscape</h2>
+
+    <p>To think systematically about the opportunity I have mapped out features across two dimensions: who they serve (solo vs group viewers) and how much they disrupt Netflix's core experience (low vs high disruption).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Solo Viewer</th>
+          <th>Group Viewers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low Disruption</td>
+          <td>
+            <ul>
+              <li>Friend activity feeds ("what your friends are watching…")</li>
+              <li>Shared watchlists</li>
+              <li>Social recommendations</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Synchronized watch parties with a chat sidebar</li>
+              <li>Shared watchlists with voting</li>
+              <li>Post-show discussion threads</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>High Disruption</td>
+          <td>
+            <ul>
+              <li>Full social network with following, follower graphs and public profiles</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Real-time video watch alongs (FaceTime-style built into Netflix)</li>
+              <li>Group voting on interactive content</li>
+              <li>Live events hosted by creators or cast</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Three Features Worth Building</h2>
+
+    <div class="feature-tag">Simple</div>
+    <h3>1. Synchronized Watchlists</h3>
+
+    <p>The simplest version of social Netflix is a shared watchlist. Users create a group list, add titles, and can see what their friends have added to the list. No live coordination required, and no changes to the viewing experience itself. It's a pre-watch social layer that solves the problem of "what should we watch".</p>
+
+    <img src="netflixSimple.png" alt="A descriptive description of the image">
+
+
+    <hr>
+
+    <div class="feature-tag">Middle Ground</div>
+    <h3>2. Watch Party with Chat</h3>
+
+    <p>The more compelling bet is native watch parties: synchronized playback for a group with a collapsible chat sidebar and real-time emoji reactions. This is a feature that Teleparty has proven out. The question is whether Netflix should own it.</p>
+
+    <p>Keeping users in a third party app for the social layer means Netflix loses data, engagement time, and the opportunity to deepen the relationship between social interaction and content discovery. A native watch party also enables features that Teleparty can't: reactions that tie to specific timestamps, post-show prompts that redirect the conversation towards Netflix's catalog, and group recommendations based on shared viewing history.</p>
+
+    <p>The key design principle here is restraint. The chat sidebar should be collapsible and opt-in so that it never interferes with the solo experience. Emoji reactions that float briefly over the video (rather than cluttering a sidebar) will make the feature feel like watching with friends, not like a chat app that also plays video.</p>
+
+    <img src="netflixMedium.png" alt="Watch party with chat mockup"> 
+
+    <hr>
+
+    <div class="feature-tag">Moonshot</div>
+    <h3>3. Live Cast Q&amp;A Events</h3>
+
+    <p>The most ambitious idea reimagines Netflix as a live event platform. After a high profile season finale or series premier, Netflix hosts a live Q&amp;A with the show's cast, streamed directly in-app with fans submitting and upvoting questions in real time.</p>
+
+    <p>This is not a novel format. YouTube and Instagram Live have all run creator Q&amp;As. What makes it compelling for Netflix is context: the audience is already there and invested in the content. A live cast event immediately after the finale of a show like Stranger Things would capture peak engagement at exactly the right moment.</p>
+
+    <p>The upvoted question queue is the most difficult design decision. With millions of viewers, an open chat becomes noisy. A voting mechanism where fans collectively surface the best questions would keep the experience high-quality and scalable while making participation feel meaningful even for users whose questions don't get answered.</p>
+
+    <img src="netflixMoonshot.png" alt="Live cast Q&A mockup"> 
+
+    <hr>
+
+    <h2>The Big Picture</h2>
+
+    <p>Each of these features targets a different part of the social opportunity. Coordination before watching, connection during, and community after. Together they represent a coherent thesis: Netflix should build a social layer that wraps around the viewing experience without competing with it.</p>
+
+    <p>The risk here is to avoid overreach. A Netflix social network through public profiles, follower graphs and activity feeds would solve a problem users don't actually have on a streaming platform. The features worth building are the ones that make watching with others easier and more memorable, not the ones that turn Netflix into another social app competing for attention in an already crowded space.</p>
+
+    <p>Netflix's content creates the moment. Social features like synchronized watchlists, watch parties with chat, and live cast Q&amp;A sessions give people somewhere to share them.</p>
+
+  </div>
+
+  <div class="post-footer">
+    <span>PM Portfolio</span>
+    <span>Product Management &nbsp;·&nbsp; Netflix</span>
+  </div>
+
+</div>
+
+</body>
+</html>
