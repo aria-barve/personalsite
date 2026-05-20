@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aria Barve</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'EB Garamond', serif;
+      font-size: 17px;
+      background: #fff;
+      color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .card {
+      border: 1.5px solid #111;
+      max-width: 680px;
+      width: 100%;
+      padding: 40px 44px;
+    }
+
+    .name {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .sub {
+      font-style: italic;
+      text-align: center;
+      margin-top: 6px;
+      color: #333;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .links a {
+      color: #111;
+      text-decoration: underline;
+      margin: 0 6px;
+      font-style: italic;
+    }
+
+    hr {
+      border: none;
+      border-top: 1.5px solid #111;
+      margin: 20px 0 0;
+    }
+
+    hr.double {
+      border-top: 3px double #111;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 32px;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+
+    .about p {
+      line-height: 1.55;
+    }
+
+    .experience-list {
+      list-style: none;
+    }
+
+    .experience-list li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .experience-list li strong {
+      font-weight: 700;
+    }
+
+    .right h2 {
+      margin-top: 0;
+    }
+
+    .right .section {
+      margin-bottom: 20px;
+    }
+
+    .right a {
+      display: block;
+      color: #111;
+      text-decoration: underline;
+    }
+
+    .contact-block {
+      line-height: 1.6;
+    }
+
+    .awards-list {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .awards-list li {
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .left {
+      border-right: 1px solid #ddd;
+      padding-right: 28px;
+    }
+
+    .left .section {
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="name">ARIA BARVE</div>
+    <div class="sub">Yale University, New Haven, CT</div>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/ariabarve">LinkedIn →</a>
+    </div>
+
+    <hr>
+    <hr class="double">
+
+    <div class="grid">
+      <div class="left">
+        <div class="section">
+          <h2>About</h2>
+          <p>Sophomore at Yale studying Computer Science and Statistics. I've done AI research at Northwestern's Feinberg School of Medicine and with the Drugs for Neglected Diseases Initiative, and co-authored an IEEE paper. I also previously co-led a 60-person Girls Who Code chapter.</p>
+        </div>
+
+        <div class="section">
+          <h2>Experience & Projects</h2>
+          <ul class="experience-list">
+            <li><strong>AI Research Intern</strong> - <a href="https://www.oto-hns.northwestern.edu/index.html" style="color:#111">Northwestern Feinberg School of Medicine</a></li>
+            <li><strong>Research Intern</strong> - <a href="https://dpi.illinois.edu/" style="color:#111">Discovery Partners Institute</a></li>
+            <li><strong>Software Engineer</strong> - <a href="https://vivecenter.berkeley.edu/" style="color:#111">FHL Vive Center, UC Berkeley</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="section">
+          <h2>Social Media</h2>
+          <a href="https://www.linkedin.com/in/ariabarve">LinkedIn</a>
+          <a href="#">GitHub</a>
+        </div>
+
+        <div class="section">
+          <h2>Contact</h2>
+          <div class="contact-block">
+            aria [dot] barve [at] yale [dot] edu<br>
+            New Haven, CT
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
 
