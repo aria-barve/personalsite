@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expanding Pinterest's User Base</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E60023;
+    --red-light: #ff3a52;
+    --red-dark: #ad081b;
+    --bg: #f5f0eb;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --muted: #767676;
+    --light-gray: #efefef;
+    --border: #e0dbd4;
+    --pin-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
+    --pin-shadow-hover: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  /* ─── Outer card ─── */
+  .card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 12px 64px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  /* ─── Header ─── */
+  .post-header {
+    background: var(--red);
+    padding: 56px 52px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+
+  .post-header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40px;
+    width: 200px; height: 200px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 50%;
+  }
+
+  .post-meta {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-meta::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+
+  .logo-icon {
+    position: absolute;
+    top: 44px; right: 52px;
+    z-index: 2;
+    opacity: 0.9;
+  }
+
+  .post-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+  }
+
+  .post-header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.88);
+  }
+
+  /* ─── Body ─── */
+  .post-body {
+    padding: 52px 52px 64px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text);
+    margin: 56px 0 16px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 40px; height: 3px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 32px 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: #3a3a3a;
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; color: var(--text); }
+
+  ol, ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+    color: #3a3a3a;
+  }
+
+  li { margin-bottom: 8px; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ─── Feature tag (Pin label style) ─── */
+  .feature-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: white;
+    padding: 4px 12px 4px 8px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .feature-tag::before {
+    content: '';
+    display: block;
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+  }
+
+  /* ─── Pin-style cards for features ─── */
+  .pin-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--pin-shadow);
+    overflow: hidden;
+    margin: 24px 0 32px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border: 1px solid var(--border);
+  }
+
+  .pin-card:hover {
+    box-shadow: var(--pin-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .pin-card-body {
+    padding: 24px 28px 28px;
+  }
+
+  .pin-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .pin-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .pin-card p {
+    font-size: 15px;
+    margin-bottom: 0;
+    color: #555;
+  }
+
+  .pin-card img {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ─── Masonry-hint pin grid for table ─── */
+  .features-table-wrapper {
+    margin: 28px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--red);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+    font-size: 13px;
+  }
+
+  th:first-child {
+    background: var(--red-dark);
+    width: 130px;
+  }
+
+  td {
+    border: 1px solid #eee;
+    padding: 14px 16px;
+    vertical-align: top;
+    color: #444;
+    background: var(--white);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  td:first-child {
+    font-weight: 600;
+    color: var(--red);
+    background: #fdf5f5;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  td ul { margin: 0; padding-left: 16px; }
+  td ul li { margin-bottom: 4px; }
+
+  /* ─── Save button accent ─── */
+  .save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--red);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: default;
+    margin-top: 16px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── Callout / insight block ─── */
+  .insight {
+    background: #fff5f5;
+    border-left: 4px solid var(--red);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+    color: #3a0a0a;
+    font-size: 15px;
+  }
+
+  .insight strong {
+    color: var(--red);
+  }
+
+  /* ─── User segment pills ─── */
+  .segment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0 32px;
+  }
+
+  .segment-pill {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .segment-pill:hover {
+    box-shadow: var(--pin-shadow);
+    border-color: var(--red);
+  }
+
+  .segment-pill .seg-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .segment-pill .seg-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .segment-pill .seg-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ─── Big picture outro ─── */
+  .big-picture {
+    background: var(--red);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin-top: 48px;
+    color: white;
+  }
+
+  .big-picture h2 {
+    color: white;
+    margin-top: 0;
+    font-size: 26px;
+  }
+
+  .big-picture h2::after {
+    background: rgba(255,255,255,0.5);
+  }
+
+  .big-picture p {
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 12px;
+  }
+
+  /* ─── Footer ─── */
+  .post-footer {
+    background: var(--light-gray);
+    border-top: 1px solid var(--border);
+    padding: 18px 52px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .footer-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 600px) {
+    .post-body, .post-header { padding-left: 24px; padding-right: 24px; }
+    .post-footer { padding: 16px 24px; flex-direction: column; gap: 4px; text-align: center; }
+    .segment-grid { grid-template-columns: 1fr; }
+    .logo-icon { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Header -->
+  <div class="post-header">
+    <div class="post-meta">PM Portfolio</div>
+
+    <!-- Pinterest P logo -->
+    <svg class="logo-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,0.15)"/>
+      <path d="M22 8C14.268 8 8 14.268 8 22c0 5.985 3.614 11.128 8.818 13.338-.122-1.094-.232-2.773.048-3.966.253-1.073 1.69-7.162 1.69-7.162s-.431-.862-.431-2.138c0-2.003 1.161-3.502 2.606-3.502 1.229 0 1.824.923 1.824 2.03 0 1.236-.788 3.088-1.196 4.805-.34 1.435.72 2.603 2.135 2.603 2.562 0 4.532-2.7 4.532-6.598 0-3.45-2.48-5.862-6.02-5.862-4.1 0-6.506 3.074-6.506 6.254 0 1.238.477 2.566 1.071 3.29a.43.43 0 0 1 .1.41c-.109.453-.352 1.435-.4 1.636-.064.265-.213.32-.49.193-1.91-.89-3.104-3.685-3.104-5.93 0-4.822 3.504-9.252 10.104-9.252 5.304 0 9.43 3.78 9.43 8.83 0 5.267-3.32 9.503-7.928 9.503-1.549 0-3.007-.806-3.506-1.755l-.953 3.554c-.345 1.327-1.276 2.99-1.9 4.001A14.02 14.02 0 0 0 22 36c7.732 0 14-6.268 14-14S29.732 8 22 8z" fill="white"/>
+    </svg>
+
+    <h1>Expanding Pinterest's<br><em>User Base</em></h1>
+  </div>
+
+  <!-- Body -->
+  <div class="post-body">
+
+    <h2>Why Expand the User Base?</h2>
+
+    <p>Pinterest's mission is "to bring everyone the inspiration to create a life they love." Their business model reflects that. Users create boards to collect pins organized around whatever they're planning or dreaming about — and those pins drive revenue through affiliate shopping integrations and native ads.</p>
+
+    <div class="insight">
+      <strong>The core thesis: </strong>Pinterest has a perception problem. With over 600 million monthly active users and a platform built around intent-driven discovery, Pinterest sits in a unique position. Users don't come to doom-scroll or binge content, they come with a purpose: whether that's wedding planning, furnishing an apartment, finding a recipe, or searching for hobbies. 
+    </div>
+
+    <p>A larger user base (measured by the number of monthly active users) means more ad impressions, more affiliate purchases, and more data to improve recommendations, all of which would lead to more revenue. </p>
+
+    <h2>Who Are We Building For?</h2>
+
+    <p>~77% of Pinterest's users are women. That makes men the single largest untapped segment on the platform. To think about how to reach them, it helps to segment users by <strong>intent</strong>:</p>
+
+    <div class="segment-grid">
+      <div class="segment-pill">
+        <div class="seg-num">01</div>
+        <div class="seg-title">The Hobbyist</div>
+        <p class="seg-desc">Explores pins around a craft or interest — gardening, painting, woodworking.</p>
+      </div>
+      <div class="segment-pill">
+        <div class="seg-num">02</div>
+        <div class="seg-title">Event Planner</div>
+        <p class="seg-desc">Organizes a specific life event — wedding, baby shower, birthday party.</p>
+      </div>
+      <div class="segment-pill">
+        <div class="seg-num">03</div>
+        <div class="seg-title">Purchaser</div>
+        <p class="seg-desc">Uses Pinterest as a discovery and wishlist tool toward a transaction.</p>
+      </div>
+    </div>
+
+    <p>In my opinion, the right design approach would be to think about features that could expand the male user base in each of these three intent groups. With only ~23% of users being male, men represent the single largest untapped segment on the platform. The features below are designed specifically to give them a reason to join and stay.    </p>
+
+    <h2>Features Landscape</h2>
+
+    <p>Mapping opportunities across gender and intent reveals where the growth is. The female column reflects deepening engagement with Pinterest's existing core. The male column is where the upside lies.</p>
+
+    <div class="features-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Female Users</th>
+            <th>Male Users</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hobbyist</td>
+            <td>
+              <ul>
+                <li>Skill progression boards</li>
+                <li>Tutorial sequencing →  link pins into an ordered project path</li>
+                <li>Hobby communities / circles</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Gear &amp; tools integration →  "what do I need for this?"</li>
+                <li>Video-first pin format — short-form how-to (distinct from Idea Pins)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Event Planner</td>
+            <td>
+              <ul>
+                <li>Collaborative planning rooms with roles</li>
+                <li>Vendor discovery →  "find this near me" layer</li>
+                <li>Guest experience builder</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Collaborative planning rooms pull in male partners as side effect</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Purchaser</td>
+            <td>
+              <ul>
+                <li>"My Wardrobe" / "My Home" boards</li>
+                <li>Style quizzes → personalized storefronts</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Build the Setup bundles →  save a pin, get the full kit</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Three Features Worth Building</h2>
+
+    <!-- Feature 1 -->
+    <div class="feature-tag">Simple</div>
+    <div class="pin-card">
+      <div class="pin-card-body">
+        <div class="pin-card-label">Feature 01</div>
+        <div class="pin-card-title">Collaborative Planning Rooms</div>
+        <p>Pinterest boards already support multiple contributors. This adds roles, voting, and an activity feed on top of infrastructure that's largely already there. The real growth mechanic: a single female planner inviting a partner, parent, or vendor to the room directly grows the male user base as a side effect of the feature working as intended.</p>
+        <p style="margin-top: 12px; font-size: 14px; color: var(--muted);">The hardest part is the vendor integration layer — but that's a business development problem, not an engineering one.</p>
+        <br>
+        <img src="pinterestSimple.png" alt="A descriptive description of the image">
+        <button class="save-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Save
+        </button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Feature 2 -->
+    <div class="feature-tag">Middle Ground</div>
+    <div class="pin-card">
+      <div class="pin-card-body">
+        <div class="pin-card-label">Feature 02</div>
+        <div class="pin-card-title">Build the Setup Bundles</div>
+        <p>When a user saves a product pin — say, a camera body — Pinterest automatically surfaces a panel suggesting the full kit: lenses, a bag, memory cards, accessories. Men tend to shop by ecosystem. This feature speaks directly to that behavior, giving men a reason to use Pinterest the way they already use Reddit threads and YouTube comment sections.</p>
+        <p style="margin-top: 12px; font-size: 14px; color: var(--muted);">Saves a product → surfaces the full kit. A natural upsell that feels helpful, not pushy.</p>
+        <br>
+        <img src="pinterestMedium.png" alt="A descriptive description of the image">
+        <button class="save-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Save
+        </button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Feature 3 -->
+    <div class="feature-tag">Moonshot</div>
+    <div class="pin-card">
+      <div class="pin-card-body">
+        <div class="pin-card-label">Feature 03</div>
+        <div class="pin-card-title">Video-First Pin Format</div>
+        <p>Men skew heavily toward instructional, execution-focused content. The YouTube DIY audience is enormous and predominantly male. A video-first how-to format with timestamped steps and a checkable progress overlay would give male users a reason to open Pinterest <em>mid-project</em> — not just for pre-project inspiration.</p>
+        <p style="margin-top: 12px; font-size: 14px; color: var(--muted);">The shift from a platform you browse <em>before</em> doing something to one you use <em>while</em> doing it is what would turn a casual male visitor into a regular user.</p>
+        <br>
+        <img src="pinterestMoonshot.png" alt="A descriptive description of the image">
+        <button class="save-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Save
+        </button>
+      </div>
+    </div>
+
+    <!-- Big Picture -->
+    <div class="big-picture">
+      <h2>The Big Picture</h2>
+      <p>In my opinion, Pinterest’s growth problem isn’t a content problem. It’s a relevance problem. The platform has spent a decade perfecting the experience for its core user, and in doing so, left an enormous segment of the population without a compelling reason to show up. </p>
+      <p>Collaborative planning rooms deepen engagement for existing users and pull in male users through the natural social mechanics of planning with others. Build the Setup unlocks a shopping behavior men already have, just not on Pinterest. And a video-first pin format makes a credible case for Pinterest in the space of instructional how-to content.</p>
+      <p style="margin-bottom: 0;">Together these features retain more current users, pull in the adjacent user who's almost there, and make a long-term bet on the segment that could redefine what Pinterest is for.</p>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="post-footer">
+    <span>PM Portfolio</span>
+    <span>Product Management <span class="footer-dot"></span> Pinterest</span>
+  </div>
+
+</div>
+
+</body>
+</html>
