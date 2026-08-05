@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Increasing Audible's Customer Lifetime Value</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF9900;
+    --orange-deep: #F07800;
+    --orange-light: #FFB84D;
+    --orange-pale: #FFF3DC;
+    --cream: #FFFBF2;
+    --text: #1A1004;
+    --muted: #7A6040;
+    --border: #F0D89A;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--orange-pale);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  /* ── Card ── */
+  .card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(180, 100, 0, 0.18), 0 1px 6px rgba(180,100,0,0.10);
+  }
+
+  /* ── Header ── */
+  .post-header {
+    background: var(--orange);
+    padding: 56px 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 50%;
+  }
+
+  .post-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  /* Audible wordmark SVG inline */
+  .logo-row svg {
+    height: 28px;
+    fill: var(--white);
+    opacity: 0.92;
+  }
+
+  .eyebrow {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 14px;
+  }
+
+  .post-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.18;
+    color: #1A1004;
+    max-width: 520px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-header h1 em {
+    font-style: italic;
+    color: #3A2208;
+  }
+
+  .header-meta {
+    margin-top: 24px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.04em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Body ── */
+  .post-body {
+    padding: 52px 56px 64px;
+  }
+
+  .post-body p {
+    margin-bottom: 22px;
+    color: #2A1A04;
+  }
+
+  /* ── Section headings ── */
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.28;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1.5px solid var(--border);
+    margin: 42px 0;
+  }
+
+  /* ── Segmentation cards ── */
+  .seg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+
+  .seg-card {
+    background: var(--orange-pale);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 22px 22px 20px;
+  }
+
+  .seg-card .seg-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .seg-card h3 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    margin-bottom: 8px;
+  }
+
+  .seg-card p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #4A3010;
+    margin-bottom: 0;
+  }
+
+  /* ── Feature table ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0 32px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: var(--orange);
+  }
+
+  thead th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  thead th:first-child {
+    width: 100px;
+  }
+
+  tbody tr:nth-child(odd) {
+    background: var(--cream);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--white);
+  }
+
+  tbody td {
+    padding: 14px 18px;
+    vertical-align: top;
+    border-top: 1px solid var(--border);
+    color: #2A1A04;
+    line-height: 1.6;
+  }
+
+  tbody td:first-child {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    white-space: nowrap;
+  }
+
+  /* ── Feature blocks ── */
+  .feature-block {
+    background: var(--orange-pale);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 6px 6px 0;
+    padding: 28px 28px 24px;
+    margin: 24px 0 32px;
+  }
+
+  .feature-tier {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    margin-bottom: 6px;
+  }
+
+  .feature-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .feature-block p {
+    font-size: 15px;
+    color: #3A2208;
+    margin-bottom: 0;
+    line-height: 1.75;
+  }
+
+  /* complexity badge */
+  .complexity-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: var(--white);
+    border-radius: 2px;
+    padding: 3px 9px;
+    margin-bottom: 12px;
+  }
+
+  /* ── Conclusion callout ── */
+  .conclusion-block {
+    background: var(--orange);
+    border-radius: 6px;
+    padding: 36px 36px 32px;
+    margin-top: 10px;
+  }
+
+  .conclusion-block p {
+    color: var(--white);
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  .conclusion-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .conclusion-block strong {
+    font-weight: 600;
+  }
+
+  /* ── Footer ── */
+  .post-footer {
+    background: var(--orange-pale);
+    border-top: 1.5px solid var(--border);
+    padding: 22px 56px;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .feature-block img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-top: 16px;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .post-header, .post-body { padding: 36px 28px; }
+    .post-header h1 { font-size: 30px; }
+    .seg-grid { grid-template-columns: 1fr; }
+    .post-footer { padding: 18px 28px; }
+  }
+</style>
+</head>
+<body>
+<article class="card">
+
+  <!-- Header -->
+  <header class="post-header">
+    <div class="logo-row">
+      <!-- Audible wordmark -->
+      <svg viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" aria-label="Audible">
+        <text x="0" y="24" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="white">Audible</text>
+      </svg>
+    </div>
+    <h1>Increasing Audible's<br><em>Customer Lifetime Value</em></h1>
+  </header>
+
+  <!-- Body -->
+  <div class="post-body">
+
+    <!-- Overview -->
+    <p>The audiobook market grew 13% in 2024 to ~$2.22 billion, and Audible sits at the center of it with a 63% market share and a catalog of over 100 million titles. Yet the platform faces a structural shift: Spotify's 276 million Premium subscribers now get audiobooks bundled at no extra cost, quietly eroding the case for a dedicated Audible subscription.</p>
+    <p>As a result, Audible should focus on building features that will increase engagement: are users finishing books, building habits, and becoming the kind of listeners who would never leave?</p>
+
+    <hr class="divider">
+
+    <!-- Who are we building for -->
+    <h2>User Segmentation</h2>
+    <p>We can segment users by obvious factors like gender, location, age, and other demographic factors. But when thinking about ways to increase user engagement with Audible, it helps to consider two key segmentations. Together, they define not just who the user is, but what it would take to make Audible indispensable to them.</p>
+
+    <div class="seg-grid">
+      <div class="seg-card">
+        <div class="seg-num">01</div>
+        <h3>Pricing Tier</h3>
+        <p>Pricing Tier: An Audible user can be on a standard plan which includes 1 audiobook a month, or a premium tier of either 1 or 2 audiobooks a month and the ability to keep books even after cancelling a subscription. </p>
+      </div>
+      <div class="seg-card">
+        <div class="seg-num">02</div>
+        <h3>Consumption Format</h3>
+        <p>Preferred Consumption Format: A user might prefer consuming books in audio format (via Audible, Spotify, or other competitors), in written but digital format (via Kindle), or on paper (via a physical book). 
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Feature table -->
+    <h2>Features Mapped Across Segments</h2>
+    <p>The table below maps some potential feature ideas that would appeal to users across pricing tier and preferred consumption format.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th> Audible</th>
+            <th> Kindle / Digital</th>
+            <th> Paper</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Standard</td>
+            <td><strong>Listening Streaks</strong>: daily goals with streak rewards and early access at milestones<br><br><strong>Conditional Credit Rollover</strong>: roll over unused credit if you finish ≥1 book that month<br><br><strong>Listening Buddy</strong>: pair with a friend, track progress, unlock shared bonus credit</td>
+            <td><strong>Kindle + Audible Bundle Upgrade</strong>: matching Kindle ebook at a steep discount when a Standard member picks their credit title<br><br><strong>Immersion Reading Milestone</strong>: first time reading + listening together unlocks a bonus credit</td>
+            <td><strong>QR Bookmark Insert</strong>: physical books shipped with a bookmark linking to the Audible audiobook<br><br><strong>Referral Gift Card</strong>: $5 Audible trial gift card included in certain Amazon book deliveries</td>
+          </tr>
+          <tr>
+            <td>Premium</td>
+            <td><strong>AI Listening Assistant</strong>: personalized 3-month listening roadmap based on genres, mood, and pace<br><br><strong>Originals Early Drop</strong>: Premium members get Audible Originals 2 weeks early</td>
+            <td><strong>Goodreads Deep Sync</strong>: auto-mark shelves as "read" when you finish in Immersion mode<br><br><strong>Chapter Digest</strong>: auto-generated 3-sentence recap of any chapter you missed</td>
+            <td><strong>Swap Program</strong>: scan a physical book barcode to get the Audible version at 50% off<br><br><strong>Curated Box Add-On</strong>: optional quarterly physical book box, curated by listening history<br><br><strong>Unified Annotation Layer</strong>: photo-scan physical margin notes, synced with Audible/Kindle annotations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Features to build -->
+    <h2>Which Features Should Audible Build?</h2>
+
+    <!-- Simple -->
+    <div class="feature-block">
+      <div class="complexity-badge">Simple Solution</div>
+      <div class="feature-tier">Standard Tier · Prefers Audio Consumption</div>
+      <h3>Conditional Credit Rollover</h3>
+      <p>The most common reason Standard subscribers cancel isn't that they dislike Audible. It's that they feel like they're wasting money on a month they didn't use. Tying rollover to completion flips that dynamic: instead of punishing inactivity with an expiring credit, Audible rewards follow-through. Users who finish a book feel accomplished and users who know a rollover is on the line have a reason to open the app.</p>
+      <img src="audibleSimple.png" alt="A descriptive description of the image">
+    </div>
+
+    <!-- Middle road -->
+    <div class="feature-block">
+      <div class="complexity-badge">Middle Road</div>
+      <div class="feature-tier">Premium Tier · Prefers Audio/Kindle Consumption</div>
+      <h3>Chapter Digest</h3>
+      <p>The 40–60% abandonment cliff is one of the most consistent patterns in long-form nonfiction listening. Users fall behind, lose the thread, and stop opening the app. Chapter Digest addresses the actual reason people abandon books: not boredom, but the social friction of feeling lost. A three-sentence recap lowers the re-entry cost to almost zero. Instead of starting over or pretending to remember, the listener just picks up where they left off. This is the difference between a book that gets finished and one that sits in the queue for six months, and a subscriber who stays versus one who decides Audible "isn't really for them."</p>
+      <img src="audibleMedium.png" alt="A descriptive description of the image">
+    </div>
+
+    <!-- Moonshot -->
+    <div class="feature-block">
+      <div class="complexity-badge">Moonshot</div>
+      <div class="feature-tier">Premium Tier · Prefers Audio Consumption</div>
+      <h3>AI Listening Assistant</h3>
+      <p>Most people don't cancel Audible because they found something better, they cancel because the momentum ran out. They finished a book, didn't know what to listen to next, and the app sat unopened long enough that the subscription started to feel optional. The AI assistant closes that gap before it opens. A personalized roadmap that knows your pace, your mood, and your history means there's always something queued, and the longer you use it, the more irreplaceable it becomes. 
+      </p>
+      <img src="audibleMoonshot.png" alt="A descriptive description of the image">
+    </div>
+
+    <hr class="divider">
+
+    <!-- Conclusion -->
+    <h2>Conclusion</h2>
+
+    <div class="conclusion-block">
+      <p>Audible's retention problem isn't that users dislike the product. It's that the product doesn't fight hard enough to stay in their lives. Credits expire. Books get abandoned. Queues run dry.</p>
+      <p>Each of these is a small friction, but compounded across millions of subscribers, they represent a quiet churn engine running in the background. <strong>Conditional Credit Rollover removes the guilt. Chapter Digest removes the dropout. The AI Assistant removes the empty queue.</strong></p>
+      <p>Together they address not what Audible offers, but whether users actually experience it, which is ultimately the only engagement metric that matters.</p>
+    </div>
+
+  </div><!-- /post-body -->
+
+  <footer class="post-footer">
+    ariabarve.com &nbsp;·&nbsp; Product Strategy
+  </footer>
+
+</article>
+</body>
+</html>
