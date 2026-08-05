@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Ad Campaign Engine &middot; Aria Barve</title>
+  <meta name="description" content="A dispatch board built at Instawork that ranks unfilled shifts by fill risk and sizes SMS, paid and referral outreach against the lead time of what's actually open." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    /* Set the theme before first paint so there is no flash of the wrong mode. */
+    (function(){try{var t=localStorage.getItem("theme");if(!t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+  </script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TEMPLATE - anything in [SQUARE BRACKETS] is a placeholder to replace.
+     Structure is done; only the copy below needs filling in.
+
+     Sections, in order:
+       1. Hero        - kicker, title, one-paragraph summary, meta row
+       2. Metrics     - three number tiles (delete the section if not useful)
+       3. Prose       - three "chapters"; rename, add or remove <div class="prose"> blocks freely
+       4. Next / prev - link to the next project
+
+     Useful classes inside .prose:  <h2>, <p>, <ul><li>, <strong>
+     ═══════════════════════════════════════════════════════════════ -->
+
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <!-- ══ NAV (same on every page - no edits needed) ══ -->
+  <nav>
+    <a href="index.html" class="monogram">AB</a>
+    <div class="nav-right">
+      <a class="icon-btn" href="https://linkedin.com/in/ariabarve" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C21.4 8.75 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3-2 0-2.3 1.57-2.3 3.2V21h-4V9z"/></svg>
+      </a>
+      <a class="icon-btn" href="mailto:aria.barve@yale.edu" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v.4l-10 5.9-10-5.9v-.4zm0 2.7V18.5A1.5 1.5 0 0 0 3.5 20h17a1.5 1.5 0 0 0 1.5-1.5V8.2l-9.49 5.6a1 1 0 0 1-1.02 0L2 8.2z"/></svg>
+      </a>
+      <button class="icon-btn theme-toggle" aria-label="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 0 1-9.45-9.45A1 1 0 0 0 11 2.36 10 10 0 1 0 22 13.64a1 1 0 0 0-.36-.64z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 17a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm17 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM4.9 4.9a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4L4.9 6.3a1 1 0 0 1 0-1.4zm11.4 11.4a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4l-1.4-1.4a1 1 0 0 1 0-1.4zM19.1 4.9a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0zM7.7 16.3a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0z"/></svg>
+      </button>
+      <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="menu">
+    <a href="index.html#about">About</a>
+    <a href="index.html#work">Selected Work</a>
+    <div class="menu-sep"></div>
+    <a href="21meals.html">21Meals <span>Founder</span></a>
+    <a href="ad-engine.html">Ad Campaign Engine <span>Instawork</span></a>
+    <a href="cochlear-research.html">Cochlear Research <span>Northwestern</span></a>
+    <a href="ieee-paper.html">IEEE COMPSAC <span>Paper</span></a>
+    <div class="menu-sep"></div>
+    <a href="blog/blog.html">Writing <span>Case studies</span></a>
+    <div class="menu-sep"></div>
+    <a href="index.html#education">Education</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+  <!-- ══ 1. HERO ══════════════════════════════════════════ -->
+  <header class="p-hero">
+    <div class="wrap">
+      <a class="back-link" href="index.html#work">&larr; Back to work</a>
+
+      <p class="work-kicker">Internship project &middot; Instawork</p>
+      <h1 class="p-title">Agentic Outreach Engine</h1>
+
+      <p class="p-sub">
+        Developed an outreach engine that identifies supply gaps and uses agentic workflows to tap into existing supply and grow supply.
+      </p>
+
+      <!-- Meta row: add or remove <div>s to taste -->
+      <div class="p-meta">
+        <div><span>Role</span><b>Product Operations Intern</b></div>
+        <div><span>Timeline</span><b>Jun 2026 &ndash; Aug 2026</b></div>
+        <div><span>Stack</span><b>Python, SQL, generative AI APIs</b></div>
+        <div><span>Status</span><b>In production</b></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ PROSE ════════════════════════════════════════════
+       Duplicate a .prose block to add a chapter; rename the <h2>s
+       to whatever fits this project. -->
+  <section class="section">
+    <div class="wrap">
+
+      <div class="prose reveal">
+        <h2>The problem</h2>
+        <p>
+          Instawork matches hourly professionals to shifts, and the shifts that don't fill are the whole
+          problem. On an ordinary day that's <strong>4,295 unfilled shifts</strong> spread across ten markets,
+          far past what anyone can triage by reading a list. Some of them are genuinely urgent and some
+          only look it, and the ones that matter are buried.
+        </p>
+        <p>
+          The harder part is that the right response is different for each one. A shift starting in four hours
+          needs a text to somebody already nearby and already qualified. A shift thirty days out is an
+          acquisition problem: you have time to run ads and wait for them to convert. Treating those the
+          same wastes either the spend or the shift, and the tooling didn't distinguish them.
+        </p>
+      </div>
+
+      <div class="prose reveal">
+        <h2>What I built</h2>
+        <p>
+          A dispatch board that pulls every unfilled shift across markets, ranks them by fill risk, and then,
+          the part I care about, sizes an outreach plan against the lead time of what's actually open in that
+          market, rather than applying one playbook everywhere.
+        </p>
+        <p>
+          The risk scoring underneath it is a simple neural network I trained to classify whether a given shift
+          is likely to fill or go unfilled. That is what puts a percentage on a row and decides which shifts are
+          worth intervening on at all, so the board leads with the bookings actually in trouble rather than the
+          ones that merely look urgent.
+        </p>
+        <p>
+          Ordering the pros for a given shift is deliberately not a model. It ranks on what already predicts
+          turnout well: how many past gigs a pro has worked and their reliability rating. That keeps the
+          targeting explainable, which matters when someone has to justify why one pro got contacted first.
+        </p>
+      </div>
+
+      <!-- ══ APP SHOTS ══ Swap the files in images/ to update. -->
+      <figure class="shots reveal">
+        <a class="shots-frame" href="images/instawork-1-dispatch-board.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/instawork-1-dispatch-board.png" width="2908" height="1500" loading="lazy"
+                 alt="Dispatch board showing 4,295 unfilled shifts, 166 urgent within 24 hours, and 15,523 open slots, with market cards for ten metros each flagged at risk or on track." />
+          </div>
+        </a>
+        <figcaption>
+          The top of the board: global counters, market hotspots, and every market carrying its own unfilled
+          count, requested-worker-only count and risk state. Markets sort themselves; you start where the
+          bleeding is.
+        </figcaption>
+      </figure>
+
+      <div class="prose reveal">
+        <p>
+          Drilling into a market splits its unfilled shifts into lead-time buckets (next 7 days, 8&ndash;29
+          days, 30+ days) and gives each bucket to the channel that can actually reach it in time. Every
+          channel is sized against its own conversion rate, so the plan comes out in the units you'd actually
+          act on: texts to send, dollars to spend, posts to write, invites to ask for.
+        </p>
+        <ul>
+          <li><strong>SMS</strong> covers shifts under 7 days at a 26.5% conversion rate, the only channel fast enough for the near band.</li>
+          <li><strong>Meta ads</strong> take the 30+ day bucket, where a 7.5% conversion rate and a ~$10 CPM still have time to pay off.</li>
+          <li><strong>Reddit and referrals</strong> split the 8&ndash;29 day middle, at 1% and 3.7% respectively.</li>
+          <li>Each panel ends in the actual launch action, so the plan doesn't stop at a recommendation.</li>
+        </ul>
+        <p>
+          Those actions run the campaign rather than handing you a brief. The Meta panel builds and launches the
+          campaign itself, sized to that market's budget and audience, so nobody opens Ads Manager to translate a
+          recommendation into a live ad. The SMS panel generates the send-ready Juicebox sheet the same way.
+        </p>
+        <p>
+          Reddit works differently, and it's the piece I find most interesting. Agents write and post to the
+          communities where hourly workers actually spend time, and those posts promote Instawork itself rather
+          than any individual shift. Filling one booking helps one client; bringing new pros onto the platform
+          deepens the pool every market pulls from. So the board does both at once: it closes the specific gaps
+          in front of you, and it keeps growing the supply those gaps get filled from.
+        </p>
+      </div>
+
+      <figure class="shots reveal">
+        <a class="shots-frame" href="images/instawork-2-channel-plan.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/instawork-2-channel-plan.png" width="2900" height="1464" loading="lazy"
+                 alt="Bay Area channel plan splitting 1,353 unfilled shifts into lead-time buckets and sizing SMS, Meta ads, Reddit and referrals against each one." />
+          </div>
+        </a>
+        <figcaption>
+          Bay Area, 1,353 unfilled shifts split 21 / 44 / 35 across the lead-time bands, with each channel
+          sized to the band it can reach.
+        </figcaption>
+      </figure>
+
+      <div class="prose reveal">
+        <p>
+          Below the plan sits the shift level, where the work is triage rather than strategy: filters for
+          position and market, toggles for the requested-worker-only shifts that outreach can't help, and
+          exports that hand off to wherever the follow-up actually happens: an at-risk contact CSV, or the
+          list DM'd to you on Slack.
+        </p>
+      </div>
+
+      <figure class="shots reveal">
+        <a class="shots-frame" href="images/instawork-3-shift-table.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/instawork-3-shift-table.png" width="2912" height="1492" loading="lazy"
+                 alt="Filterable shift table listing shift ID, venue, position, start time, hourly rate and fill status, with at-risk rows highlighted and per-shift risk percentages." />
+          </div>
+        </a>
+        <figcaption>
+          Individual shifts with fill status and a risk percentage; the highlighted rows are the ones trending
+          toward going unfilled.
+        </figcaption>
+      </figure>
+
+      <div class="prose reveal">
+        <p>
+          Opening a single shift shows who outreach should reach and in what order. Instawork dispatches in
+          tiers, releasing a shift to progressively wider pools of pros, so the targeting view makes the
+          current level explicit, showing how many pros are eligible right now, how many are still locked,
+          and how reliable each one is, alongside whether anyone has actually contacted them yet.
+        </p>
+      </div>
+
+      <figure class="shots reveal">
+        <a class="shots-frame" href="images/instawork-4-pro-targeting.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/instawork-4-pro-targeting.png" width="2896" height="1378" loading="lazy"
+                 alt="Single shift view flagged as starting in under four hours with zero fill, beside a pros targeting dashboard showing dispatch level, eligible and locked pools, reliability scores and contact status. Worker identities are redacted." />
+          </div>
+        </a>
+        <figcaption>
+          A shift starting in under four hours with zero fill, at dispatch level 6 of 8, with 11,626 pros
+          eligible, 140 still locked, none contacted. Worker names and contact details are blurred here.
+        </figcaption>
+      </figure>
+
+      <div class="prose reveal">
+        <h2>What happened</h2>
+        <p>
+          The board is being deployed at Instawork, where account managers use it to see the unfilled shifts
+          across the accounts they manage and to automate filling the ones the model flags as likely to go
+          unfilled. That is the shift in how the work gets done: instead of an account manager scanning a list
+          and guessing which bookings need attention, the ranking surfaces them and the outreach runs itself.
+        </p>
+        <p>
+          The change that mattered wasn't visibility, since the unfilled shifts were always countable. It was
+          that the board turns a count into a decision. Lead time became the thing that picks the channel, which
+          means the near-term shifts get the intervention that can still reach them and the far-out ones get
+          spend that has time to convert.
+        </p>
+      </div>
+
+      <!-- ══ 4. NEXT / PREV ══ -->
+      <div class="next-nav reveal">
+        <div>
+          <span>Next project</span>
+          <a href="cochlear-research.html">Cochlear Implant ML &rarr;</a>
+        </div>
+        <a class="btn btn-soft mag" href="index.html#contact">Get in touch</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Aria Barve. <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
