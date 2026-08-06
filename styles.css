@@ -682,9 +682,22 @@ a.shots-frame:hover { border-color: var(--border-hi); transform: translateY(-2px
   line-height: 1.7; max-width: 720px;
 }
 
+/* Research figures (plots, diagrams) rather than app screenshots.
+   They have white backgrounds, so they sit on a light plate that keeps
+   them readable in dark mode instead of glaring against it. */
+.shots--fig .shots-frame img {
+  background: #fff; padding: .7rem;
+}
+.shots--fig .shots-frame { padding: .8rem; }
+/* Tall figures would otherwise run past a full screen height. */
+.shots--tall .shots-frame img { max-width: 760px; margin-inline: auto; }
+/* Two figures side by side; stacks on narrow screens. */
+.shots-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 760px) { .shots-pair { grid-template-columns: 1fr; } }
+
 .next-nav {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 1.5rem; flex-wrap: wrap;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 1.5rem;
   padding: 2.5rem 0; border-top: 1px solid var(--rule);
 }
 .next-nav span { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .3rem; }
@@ -714,6 +727,10 @@ a.shots-frame:hover { border-color: var(--border-hi); transform: translateY(-2px
   .section { padding: 4.5rem 0; }
   /* keep the phone screens readable — scroll sideways instead of shrinking */
   .shots-frame img { width: auto; height: 330px; max-width: none; }
+  /* figures are legible when scaled down, so let them fit instead */
+  .shots--fig .shots-frame img { width: 100%; height: auto; }
+  /* except wide multi-panel ones, which stay readable by scrolling sideways */
+  .shots--wide .shots-frame img { width: auto; height: 300px; max-width: none; }
   .hero { min-height: 88vh; }
   .exp > summary { grid-template-columns: 1fr 24px; gap: .75rem; }
   .exp-date { grid-column: 1 / -1; color: var(--accent); padding-top: 0; margin-bottom: .3rem; }
