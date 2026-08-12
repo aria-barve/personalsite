@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M578Y6L1G5');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Writing &middot; Aria Barve</title>
@@ -35,7 +26,9 @@
        work-title    → post title
        work-desc     → one or two sentences
        work-date     → publish date
-     Stagger the reveal by bumping transition-delay by .06s per card.
+     Newest post goes FIRST. Cards run three per row (.work-grid--3).
+     Stagger the reveal by bumping transition-delay by .06s per card —
+     the first card has none, then .06s, .12s, .18s, and so on down.
      ═══════════════════════════════════════════════════════════════ -->
 
   <div id="cur-dot"></div>
@@ -93,28 +86,46 @@
   <!-- ══ POSTS ════════════════════════════════════════════ -->
   <section class="section">
     <div class="wrap">
-      <div class="work-grid">
+      <div class="work-grid work-grid--3">
 
-        <!-- POST 1 -->
-        <a class="work-card reveal" href="netflix.html">
+        <!-- POST 1 — newest first -->
+        <a class="work-card reveal" href="shopping-apps.html">
           <div class="work-visual work-visual--img">
-            <img src="netflixLogo.jpg" alt="" loading="lazy" />
+            <img src="grocery.jpg" alt="" loading="lazy" />
           </div>
           <div class="work-body">
-            <p class="work-kicker">Product Management</p>
-            <h2 class="work-title">Adding Social Features to Netflix</h2>
+            <p class="work-kicker">Product Teardown</p>
+            <h2 class="work-title">What Makes a Good Shopping App?</h2>
             <p class="work-desc">
-              Netflix drives the cultural conversation without capturing any of it. Three features,
-              shared watchlists, native watch parties and live cast Q&amp;As, that wrap a social layer
-              around viewing without competing with it.
+              Notes from trying AnyList, OurGroceries, Cozi, Flipp and GroceryGo. Every grocery trip
+              has four moments, each app owns exactly one, and the one it picks is almost predicted
+              by how it makes money.
             </p>
             <span class="link-arrow">Read <span class="arr">&rarr;</span></span>
-            <p class="work-date">May 19, 2026</p>
+            <p class="work-date">August 11, 2026</p>
           </div>
         </a>
 
         <!-- POST 2 -->
-        <a class="work-card reveal" href="pinterest.html" style="transition-delay:.06s">
+        <a class="work-card reveal" href="audible.html" style="transition-delay:.06s">
+          <div class="work-visual work-visual--img">
+            <img src="audibleLogo.jpeg" alt="" loading="lazy" />
+          </div>
+          <div class="work-body">
+            <p class="work-kicker">Product Management</p>
+            <h2 class="work-title">Increasing Audible's Customer Lifetime Value</h2>
+            <p class="work-desc">
+              Spotify now bundles audiobooks for 276M Premium subscribers, quietly eroding the case for a
+              standalone subscription. Conditional credit rollover and chapter digests, features
+              aimed at the abandonment cliff rather than at acquisition.
+            </p>
+            <span class="link-arrow">Read <span class="arr">&rarr;</span></span>
+            <p class="work-date">June 9, 2026</p>
+          </div>
+        </a>
+
+        <!-- POST 3 -->
+        <a class="work-card reveal" href="pinterest.html" style="transition-delay:.12s">
           <div class="work-visual work-visual--img">
             <img src="pinterestLogo.jpg" alt="" loading="lazy" />
           </div>
@@ -131,21 +142,21 @@
           </div>
         </a>
 
-        <!-- POST 3 -->
-        <a class="work-card reveal" href="audible.html" style="transition-delay:.12s">
+        <!-- POST 4 -->
+        <a class="work-card reveal" href="netflix.html" style="transition-delay:.18s">
           <div class="work-visual work-visual--img">
-            <img src="audibleLogo.jpeg" alt="" loading="lazy" />
+            <img src="netflixLogo.jpg" alt="" loading="lazy" />
           </div>
           <div class="work-body">
             <p class="work-kicker">Product Management</p>
-            <h2 class="work-title">Increasing Audible's Customer Lifetime Value</h2>
+            <h2 class="work-title">Adding Social Features to Netflix</h2>
             <p class="work-desc">
-              Spotify now bundles audiobooks for 276M Premium subscribers, quietly eroding the case for a
-              standalone subscription. Conditional credit rollover and chapter digests, features
-              aimed at the abandonment cliff rather than at acquisition.
+              Netflix drives the cultural conversation without capturing any of it. Three features,
+              shared watchlists, native watch parties and live cast Q&amp;As, that wrap a social layer
+              around viewing without competing with it.
             </p>
             <span class="link-arrow">Read <span class="arr">&rarr;</span></span>
-            <p class="work-date">June 9, 2026</p>
+            <p class="work-date">May 19, 2026</p>
           </div>
         </a>
 
