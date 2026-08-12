@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Makes a Good Shopping App?</title>
+<meta name="description" content="Notes from trying AnyList, OurGroceries, Cozi, Flipp and GroceryGo: which moment of the shopping loop each one owns, and why the gaps line up with the business model.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:       #2E7D4F;
+    --green-dark:  #1C5335;
+    --green-light: #7CC79A;
+    --green-pale:  #EDF6F0;
+    --green-tint:  #F6FBF7;
+    --bg:          #f2f0ea;
+    --white:       #ffffff;
+    --text:        #17251c;
+    --muted:       #6f8a79;
+    --border:      #e2ded6;
+    --border-green:#d3e7da;
+    --soft:        0 4px 16px rgba(30,80,50,0.10), 0 1px 4px rgba(30,80,50,0.06);
+    --soft-hover:  0 8px 32px rgba(30,80,50,0.16), 0 2px 8px rgba(30,80,50,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  /* ─── Outer card ─── */
+  .card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 12px 64px rgba(30,80,50,0.10), 0 2px 8px rgba(30,80,50,0.06);
+  }
+
+  /* ─── Header ─── */
+  .post-header {
+    background: var(--green);
+    padding: 56px 52px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .post-header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40px;
+    width: 200px; height: 200px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+  }
+
+  .post-meta {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-meta::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+
+  .basket-icon {
+    position: absolute;
+    top: 44px; right: 52px;
+    z-index: 2;
+    opacity: 0.9;
+  }
+
+  .post-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+  }
+
+  .post-header h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,0.88);
+  }
+
+  .post-date {
+    margin-top: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Body ─── */
+  .post-body { padding: 52px 52px 64px; }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text);
+    margin: 56px 0 16px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  h2:first-of-type { margin-top: 0; }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 40px; height: 3px;
+    background: var(--green-light);
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 32px 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  p { margin-bottom: 16px; color: #3a4a40; }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; color: var(--text); }
+
+  .lede {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--green);
+    margin-bottom: 24px;
+  }
+
+  ol, ul { margin: 0 0 16px; padding-left: 20px; color: #3a4a40; }
+  li { margin-bottom: 8px; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ─── Tables ─── */
+  .table-wrap {
+    margin: 28px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border-green);
+    box-shadow: var(--soft);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+  th {
+    background: var(--green);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+    font-size: 13px;
+  }
+
+  th:first-child { background: var(--green-dark); width: 130px; }
+
+  td {
+    border: 1px solid #eef2ef;
+    padding: 14px 16px;
+    vertical-align: top;
+    color: #44544a;
+    background: var(--white);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  td:first-child {
+    font-weight: 600;
+    color: var(--green);
+    background: var(--green-tint);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ─── App cards ─── */
+  .app-card {
+    background: var(--white);
+    border: 1px solid var(--border-green);
+    border-radius: 20px;
+    box-shadow: var(--soft);
+    padding: 26px 28px 28px;
+    margin: 24px 0 32px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .app-card:hover {
+    box-shadow: var(--soft-hover);
+    transform: translateY(-2px);
+  }
+
+  .app-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--green);
+    color: #fff;
+    padding: 4px 12px 4px 8px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .app-tag::before {
+    content: '';
+    display: block;
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 50%;
+  }
+
+  .app-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text);
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+
+  .app-price {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    letter-spacing: 0.2px;
+  }
+
+  .app-card p { font-size: 15px; color: #4a5a50; margin-bottom: 0; }
+  .app-card p + p { margin-top: 14px; }
+
+  /* ─── Screenshots ─── */
+  .shots {
+    display: grid;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .shots--1 { grid-template-columns: 1fr; }
+  .shots--2 { grid-template-columns: 1fr 1fr; }
+  .shots--3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .shots img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(30,80,50,0.08);
+  }
+
+  .caption {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 12px 0 0;
+    line-height: 1.6;
+  }
+
+  .app-card .caption { margin-bottom: 0; }
+
+  /* ─── Pull quote ─── */
+  .pull {
+    background: var(--green-pale);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 28px 0;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--green-dark);
+  }
+
+  /* ─── Gap cards ─── */
+  .gap-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 28px 0 32px; }
+
+  .gap-card {
+    background: var(--green-tint);
+    border: 1px solid var(--border-green);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    align-items: start;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .gap-card:hover {
+    box-shadow: var(--soft-hover);
+    transform: translateY(-2px);
+  }
+
+  .gap-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: #10301e;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+  }
+
+  .gap-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 6px 0 6px;
+    color: var(--text);
+    letter-spacing: 0;
+  }
+
+  .gap-card p { font-size: 15px; color: #4a5a50; margin-bottom: 0; }
+
+  /* ─── Conclusion ─── */
+  .conclusion {
+    background: var(--green);
+    border-radius: 24px;
+    padding: 34px 34px 30px;
+    margin-top: 32px;
+  }
+
+  .conclusion p {
+    color: rgba(255,255,255,0.94);
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  .conclusion p:last-child { margin-bottom: 0; }
+  .conclusion strong { color: #fff; font-weight: 600; }
+
+  /* ─── Footer ─── */
+  .post-footer {
+    background: var(--green-tint);
+    border-top: 1px solid var(--border-green);
+    padding: 22px 52px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+
+  .post-footer a { color: var(--green); text-decoration: none; font-weight: 500; }
+  .post-footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .card { border-radius: 24px; }
+    .post-header, .post-body { padding: 40px 26px; }
+    .basket-icon { display: none; }
+    .shots--3 { grid-template-columns: 1fr 1fr; }
+    .post-footer { padding: 18px 26px; }
+  }
+</style>
+</head>
+<body>
+<article class="card">
+
+  <!-- Header -->
+  <header class="post-header">
+    <svg class="basket-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 8h16l-1.4 10.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 8Z"/>
+      <path d="M8.5 8 11 3.5M15.5 8 13 3.5"/>
+      <path d="M9.5 12.5v3M14.5 12.5v3"/>
+    </svg>
+    <p class="post-meta">Product Teardown &middot; Grocery &amp; Lists</p>
+    <h1>What Makes a Good<br><em>Shopping App?</em></h1>
+    <p class="post-date">August 11, 2026</p>
+  </header>
+
+  <!-- Body -->
+  <div class="post-body">
+
+    <p class="lede">My notes from trying 5 of them.</p>
+
+    <p>I added "oranges" and "spinach" to my OurGroceries list, hit the &lsquo;Shop on Instacart&rsquo; button, and got canned mandarin oranges and pre-cut frozen spinach in my cart.</p>
+
+    <p>I've been trying out different shopping list apps like AnyList, OurGroceries, Cozi, Flipp, and a tiny progressive web app called GroceryGo. What I expected to find was a feature gap. What I actually found was five apps that are each good at one moment in the shopping loop and are indifferent to the other three, and the moment each one picks is almost predicted by how it makes money.</p>
+
+    <hr>
+
+    <!-- The loop -->
+    <h2>The loop has four moments</h2>
+
+    <p>Every grocery trip runs through the same four key steps:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Moment</th>
+            <th>What the user is doing</th>
+            <th>What good looks like</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Capture</td>
+            <td>Adding &ldquo;paper towels&rdquo; while walking out of the bathroom</td>
+            <td>Under 2 seconds, one hand, no thinking</td>
+          </tr>
+          <tr>
+            <td>Plan</td>
+            <td>Deciding what to cook and where to buy it</td>
+            <td>Recipe &rarr; ingredients, items &rarr; stores</td>
+          </tr>
+          <tr>
+            <td>Aisle</td>
+            <td>Standing in front of the shelf</td>
+            <td>Sorted by aisle, readable at arm's length, live-synced</td>
+          </tr>
+          <tr>
+            <td>After</td>
+            <td>Realizing you spend $180 again</td>
+            <td>What it cost, vs what you expected</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Now map the apps:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Owns</th>
+            <th>Ignores or paywalls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AnyList</td>
+            <td>Plan (best recipe import in the category)</td>
+            <td>Aisle (store filter is paid), After (price + running total is paid)</td>
+          </tr>
+          <tr>
+            <td>OurGroceries</td>
+            <td>Capture (fastest sync I tested; barcode, voice, and photo entry all free)</td>
+            <td>Plan (no store field at all), After (no price tracking, period)</td>
+          </tr>
+          <tr>
+            <td>Cozi</td>
+            <td>The household, not the trip</td>
+            <td>Everything trip-specific &mdash; no prices, no barcode, no store filter</td>
+          </tr>
+          <tr>
+            <td>Flipp</td>
+            <td>Pre-trip deal discovery</td>
+            <td>Capture and Aisle both; the list is a coupon-clipping surface wearing a list costume</td>
+          </tr>
+          <tr>
+            <td>GroceryGo</td>
+            <td>Pantry state (inventory &rarr; plan &rarr; shop)</td>
+            <td>Distribution. Google-only login, no sharing, no barcode</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Not one of them covers three.</p>
+
+    <hr>
+
+    <!-- What each app offers -->
+    <h2>What Each App Offers</h2>
+
+    <p>This was the most useful thing I did, and it took twenty minutes.</p>
+
+    <!-- AnyList -->
+    <div class="app-card">
+      <span class="app-tag">Owns Plan</span>
+      <h3>AnyList</h3>
+      <p class="app-price">$9.99/yr individual &middot; $14.99/yr household</p>
+      <p>What's behind the wall: meal planning, unlimited recipe import, price entry, per-store filtering, web access. What's free: the list itself, autocomplete, aisle sorting, sharing, importing and creating recipes, no ads. This means that anyone who just wants a list and a running total is being asked to pay for a meal planner they won't open.</p>
+      <div class="shots shots--2">
+        <img src="anylistList.png" alt="AnyList grocery list sorted into Dairy, Grains, Meat, Produce and Soups &amp; Canned Goods sections" loading="lazy">
+        <img src="anylistRecipe.png" alt="AnyList recipe detail screen for an imported brownie recipe, with ingredients checkable into a destination list" loading="lazy">
+      </div>
+      <p class="caption">Free aisle sorting and free recipe import &mdash; the two halves of Plan, done well.</p>
+    </div>
+
+    <!-- OurGroceries -->
+    <div class="app-card">
+      <span class="app-tag">Owns Capture</span>
+      <h3>OurGroceries</h3>
+      <p class="app-price">$0.99/mo &middot; $5.99/yr &middot; $19.99 once</p>
+      <p>All you get is ad removal. Every actual feature is free. The app allows a user to create a list, scan an item, or import their list into Instacart to order their groceries online.</p>
+      <div class="shots shots--2">
+        <img src="ourgroceriesList.jpg" alt="OurGroceries list titled Ari's Birthday Party, grouped into Bakery and Household, with an ad-free upsell banner at the bottom" loading="lazy">
+        <img src="ourgroceriesAdd.jpg" alt="OurGroceries add-item screen showing previously used items across lists with a keyboard open" loading="lazy">
+      </div>
+      <p class="caption">The add-item screen is the whole product: type, tap, done, across every list at once.</p>
+    </div>
+
+    <!-- Cozi -->
+    <div class="app-card">
+      <span class="app-tag">Owns the household</span>
+      <h3>Cozi</h3>
+      <p class="app-price">$39/yr Gold &middot; $79.99/yr Max</p>
+      <p>Cozi is marketed as more of a family organizer than a grocery list. For free, you are able to enter an event like &lsquo;Grocery shopping&rsquo; and members of your family, create a list, or generate meals. If you pay, you are able to schedule events 30+ days in advance, create meal plans with AI, and remove ads.</p>
+      <div class="shots shots--3">
+        <img src="coziEvent.jpg" alt="Cozi add-new-event screen with a Schedule 30+ Days row locked behind a Gold badge" loading="lazy">
+        <img src="coziMeals.png" alt="Cozi meal planner for the week of Aug 9-15 with a locked Create Meals with AI button" loading="lazy">
+        <img src="coziLists.png" alt="Cozi shopping lists screen with Groceries, Wholesale and Other lists and a Cozi Gold upgrade ad" loading="lazy">
+      </div>
+      <p>Cozi can charge $39 because it's holding the family calendar hostage. After May 2024, free users can only see 30 days out, which broke a decade of habit and dropped their Trustpilot average to about 2.1 stars. People paid anyway. A standalone list app tops out around $15/yr. If you want more, you either attach to something the household already pays for, or you stop charging users entirely.</p>
+    </div>
+
+    <!-- GroceryGo -->
+    <div class="app-card">
+      <span class="app-tag">Owns pantry state</span>
+      <h3>GroceryGo</h3>
+      <p class="app-price">No paid tier</p>
+      <p>GroceryGo is in my opinion the worst of all the five apps I tried. It's a progressive web app, so I tried out the web version. As opposed to having a database of common grocery items, GroceryGo makes you enter in every single item you want in your &lsquo;inventory&rsquo; section and then add it into a list. There is no paid tier, so the only real features are creating a static list, which you can do in your phone's notes app.</p>
+      <div class="shots shots--1">
+        <img src="grocerygoInventory.png" alt="GroceryGo web inventory screen with two manually entered items, lemons and tomatoes" loading="lazy">
+        <img src="grocerygoPlan.png" alt="GroceryGo Plan Your Shopping screen with a single item, lemons, pulled from inventory" loading="lazy">
+      </div>
+      <p class="caption">Every item is hand-entered into Inventory before it can reach a list.</p>
+    </div>
+
+    <!-- Flipp -->
+    <div class="app-card">
+      <span class="app-tag">Owns deal discovery</span>
+      <h3>Flipp</h3>
+      <p class="app-price">Free, no premium tier</p>
+      <p>Retailers pay for placement, for targeting and analytics, for hosted flyer software on their own sites, and under a NativeX model where the retailer only pays when a shopper actually reads the ad. In March 2026 they brought in third-party measurement to tie campaigns to incremental sales. Flipp is not a shopping app with ads in it. It's an ad network with a shopping app as the acquisition channel.</p>
+      <p>Which is why Flipp can't add Whole Foods or Trader Joe's. Those chains don't publish weekly circulars, so there is literally nothing to ingest. Flipp's coverage is a function of its supply side, and its supply side is print advertising's legacy. Your users experience that as "why isn't my store here."</p>
+      <div class="shots shots--2">
+        <img src="flippBrowse.png" alt="Flipp browse screen showing deals from a watch list and a Hy-Vee weekly flyer" loading="lazy">
+        <img src="flippLists.png" alt="Flipp shopping list screen where items are grouped by retailer and attached to flyer deals" loading="lazy">
+      </div>
+      <p class="caption">The list is grouped by retailer, not by aisle &mdash; the tell that it serves the flyer, not the trip.</p>
+    </div>
+
+    <hr>
+
+    <!-- Three things -->
+    <h2>Three things that separate the good apps from the bad ones</h2>
+
+    <h3>1. Friction is denominated in taps, and capture is where you lose people.</h3>
+
+    <p>My single loudest complaint about AnyList is embarrassingly small: you add an item, then have to tap it again to change the quantity. Two taps instead of one, maybe forty times a week. That's the difference between an app you use and an app you have.</p>
+
+    <p>The correct frame is that capture is the retention gate. It's the only moment that happens ten times a week instead of once. Every other feature, like recipes, meal plans, and deal alerts, is downstream of the user having bothered to put things in the list at all. A successful and easy-to-use app will optimize the boring thing.</p>
+
+    <h3>2. Features that only work on the happy path teach users where your product ends.</h3>
+
+    <p>AnyList's autocomplete is great on grocery lists and absent on everything else. Type "ballo" on a party supplies list and it suggests nothing. This makes the user think that <em>this is a grocery app, and my other lists are second-class here.</em> Then they open Notes for the party stuff, and now you've split their behavior across two apps.</p>
+
+    <h3>3. When every competitor paywalls the same feature, ask whether it's greed or difficulty.</h3>
+
+    <p>Price entry and running totals: paywalled by AnyList, absent from Cozi, and on OurGroceries' public FAQ as a long-requested feature they haven't built. The reason is this. There are only three ways to accomplish this:</p>
+
+    <ul>
+      <li>Manual entry. Free to build, and users will do it for two weeks and then stop.</li>
+      <li>Receipt scanning / OCR. Real work, tells you what you spent but only after the fact.</li>
+      <li>Retailer data. Best experience, requires partnerships or scraping, and gets you the coverage problem Flipp has.</li>
+    </ul>
+
+    <p class="pull">A gap that persists across four independent teams is usually a hard problem.</p>
+
+    <hr>
+
+    <!-- Features nobody has built -->
+    <h2>Features nobody has built</h2>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <div class="gap-num">1</div>
+        <div>
+          <h3>The exit check</h3>
+          <p>Every location-aware app fires on arrival, like "you're at Jewel Osco, here's your list." But not one fires on departure: "you're leaving, and eggs, butter, and coffee are unchecked."</p>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-num">2</div>
+        <div>
+          <h3>Aisle order the app learns instead of asks for</h3>
+          <p>The order you check items off <em>is</em> your store's layout and a free training signal every app already collects and throws away.</p>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-num">3</div>
+        <div>
+          <h3>Pantry state derived from cadence, never entered</h3>
+          <p>Milk appears every nine days, it's day twelve, suggest it. Zero user input, fully derivable from list history, and it's the only feature here that makes the app better the longer you use it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="conclusion">
+      <p>None of these three are hard. They're unbuilt because every team in this category optimizes the moment its revenue depends on, and no revenue model in grocery lists points at the aisle.</p>
+      <p><strong>The gap isn't technical, it's who's paying.</strong></p>
+    </div>
+
+  </div><!-- /post-body -->
+
+  <footer class="post-footer">
+    <a href="blog.html">&larr; All writing</a> &nbsp;&middot;&nbsp; ariabarve.com &nbsp;&middot;&nbsp; Product Strategy
+  </footer>
+
+</article>
+</body>
+</html>
