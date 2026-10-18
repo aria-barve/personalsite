@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Four rounded list cards, one with its items checked off">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#3E9163"/>
+      <stop offset="100%" stop-color="#1C5335"/>
+    </linearGradient>
+    <clipPath id="frame"><rect width="800" height="500"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="800" height="500" fill="url(#bg)"/>
+
+    <!-- soft blooms, same motif as the post header -->
+    <circle cx="748" cy="-24" r="190" fill="#ffffff" opacity=".10"/>
+    <circle cx="300" cy="548" r="150" fill="#000000" opacity=".05"/>
+
+    <!-- four cards = the four moments of the loop -->
+    <g>
+      <!-- 1. capture -->
+      <rect x="56" y="96" width="146" height="312" rx="22" fill="#ffffff" opacity=".96"/>
+      <rect x="56" y="96" width="146" height="42" rx="22" fill="#A8DCBD"/>
+      <rect x="56" y="120" width="146" height="18" fill="#A8DCBD"/>
+      <g fill="#2E7D4F">
+        <rect x="76" y="158" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="102" y="163" width="72" height="9" rx="4.5" opacity=".42"/>
+        <rect x="76" y="200" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="102" y="205" width="56" height="9" rx="4.5" opacity=".42"/>
+        <rect x="76" y="242" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="102" y="247" width="80" height="9" rx="4.5" opacity=".42"/>
+        <rect x="76" y="284" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="102" y="289" width="48" height="9" rx="4.5" opacity=".42"/>
+      </g>
+
+      <!-- 2. plan -->
+      <rect x="226" y="68" width="146" height="368" rx="22" fill="#ffffff" opacity=".96"/>
+      <rect x="226" y="68" width="146" height="42" rx="22" fill="#A8DCBD"/>
+      <rect x="226" y="92" width="146" height="18" fill="#A8DCBD"/>
+      <g fill="#2E7D4F">
+        <rect x="246" y="130" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="272" y="135" width="68" height="9" rx="4.5" opacity=".42"/>
+        <rect x="246" y="172" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="272" y="177" width="84" height="9" rx="4.5" opacity=".42"/>
+        <rect x="246" y="214" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="272" y="219" width="54" height="9" rx="4.5" opacity=".42"/>
+        <rect x="246" y="256" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="272" y="261" width="76" height="9" rx="4.5" opacity=".42"/>
+        <rect x="246" y="298" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="272" y="303" width="62" height="9" rx="4.5" opacity=".42"/>
+      </g>
+
+      <!-- 3. aisle — the one that's actually checked off -->
+      <rect x="396" y="96" width="146" height="312" rx="22" fill="#ffffff"/>
+      <rect x="396" y="96" width="146" height="42" rx="22" fill="#2E7D4F"/>
+      <rect x="396" y="120" width="146" height="18" fill="#2E7D4F"/>
+      <g>
+        <rect x="416" y="158" width="18" height="18" rx="6" fill="#2E7D4F"/>
+        <path d="M420 167.2l3.6 3.6 6.4-7" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="442" y="163" width="72" height="9" rx="4.5" fill="#2E7D4F" opacity=".24"/>
+
+        <rect x="416" y="200" width="18" height="18" rx="6" fill="#2E7D4F"/>
+        <path d="M420 209.2l3.6 3.6 6.4-7" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="442" y="205" width="56" height="9" rx="4.5" fill="#2E7D4F" opacity=".24"/>
+
+        <rect x="416" y="242" width="18" height="18" rx="6" fill="#2E7D4F" opacity=".22"/>
+        <rect x="442" y="247" width="78" height="9" rx="4.5" fill="#2E7D4F" opacity=".42"/>
+
+        <rect x="416" y="284" width="18" height="18" rx="6" fill="#2E7D4F" opacity=".22"/>
+        <rect x="442" y="289" width="46" height="9" rx="4.5" fill="#2E7D4F" opacity=".42"/>
+      </g>
+
+      <!-- 4. after -->
+      <rect x="566" y="68" width="146" height="368" rx="22" fill="#ffffff" opacity=".96"/>
+      <rect x="566" y="68" width="146" height="42" rx="22" fill="#A8DCBD"/>
+      <rect x="566" y="92" width="146" height="18" fill="#A8DCBD"/>
+      <g fill="#2E7D4F">
+        <rect x="586" y="130" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="612" y="135" width="64" height="9" rx="4.5" opacity=".42"/>
+        <rect x="586" y="172" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="612" y="177" width="80" height="9" rx="4.5" opacity=".42"/>
+        <rect x="586" y="214" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="612" y="219" width="52" height="9" rx="4.5" opacity=".42"/>
+        <rect x="586" y="256" width="18" height="18" rx="6" opacity=".22"/>
+        <rect x="612" y="261" width="70" height="9" rx="4.5" opacity=".42"/>
+      </g>
+    </g>
+
+    <!-- little basket badge tucked into the corner -->
+    <g transform="translate(690 392)">
+      <circle cx="34" cy="34" r="34" fill="#ffffff" opacity=".96"/>
+      <g transform="translate(16 15)" fill="none" stroke="#2E7D4F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2.5 10h31l-2.7 19.8a3.2 3.2 0 0 1-3.2 2.8H8.4a3.2 3.2 0 0 1-3.2-2.8L2.5 10Z"/>
+        <path d="M11 10 15.8 1.5M25 10 20.2 1.5"/>
+        <path d="M13 18v6.5M23 18v6.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

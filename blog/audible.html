@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Increasing Audible's Customer Lifetime Value</title>
+<meta name="description" content="Increasing Audible's Customer Lifetime Value">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body style="--accent: #D97706">
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="../index.html" aria-label="Home">ab</a>
+      <span>writing/audible.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="../index.html">← index</a>
+      <a class="tb" href="../index.html#c-proj">work</a>
+      <a class="tb" href="../blog/blog.html" aria-current="page">writing</a>
+      <a class="tb" href="../index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ top</a>
+      <a href="#c-user-segmentation">§ user segmentation</a>
+      <a href="#c-features-mapped-across-segments">§ features mapped across segments</a>
+      <a href="#c-which-features-should-audible-build">§ which features should audible build?</a>
+      <a href="#c-conclusion">§ conclusion</a>
+    </nav>
+    <div class="meta">
+      <div>product management</div>
+      <div><a href="blog.html">← all writing</a></div>
+      <div>tz · new haven <span id="clock"></span></div>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+<article class="cell post" id="c-top">
+
+  <!-- Header -->
+  <header class="post-header">
+    <div class="crumb"><span class="cell-label">markdown</span><a href="blog.html">← all writing</a></div>
+    <div class="logo-row">
+      <!-- Audible wordmark -->
+      <svg viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" aria-label="Audible">
+        <text x="0" y="24" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="white">Audible</text>
+      </svg>
+    </div>
+    <h1>Increasing Audible's<br><em>Customer Lifetime Value</em></h1>
+  </header>
+
+  <!-- Body -->
+  <div class="post-body">
+
+    <!-- Overview -->
+    <p>The audiobook market grew 13% in 2024 to ~$2.22 billion, and Audible sits at the center of it with a 63% market share and a catalog of over 100 million titles. Yet the platform faces a structural shift: Spotify's 276 million Premium subscribers now get audiobooks bundled at no extra cost, quietly eroding the case for a dedicated Audible subscription.</p>
+    <p>As a result, Audible should focus on building features that will increase engagement: are users finishing books, building habits, and becoming the kind of listeners who would never leave?</p>
+
+    <hr class="divider">
+
+    <!-- Who are we building for -->
+    <h2 id="c-user-segmentation">User Segmentation</h2>
+    <p>We can segment users by obvious factors like gender, location, age, and other demographic factors. But when thinking about ways to increase user engagement with Audible, it helps to consider two key segmentations. Together, they define not just who the user is, but what it would take to make Audible indispensable to them.</p>
+
+    <div class="seg-grid">
+      <div class="seg-card">
+        <div class="seg-num">01</div>
+        <h3>Pricing Tier</h3>
+        <p>Pricing Tier: An Audible user can be on a standard plan which includes 1 audiobook a month, or a premium tier of either 1 or 2 audiobooks a month and the ability to keep books even after cancelling a subscription. </p>
+      </div>
+      <div class="seg-card">
+        <div class="seg-num">02</div>
+        <h3>Consumption Format</h3>
+        <p>Preferred Consumption Format: A user might prefer consuming books in audio format (via Audible, Spotify, or other competitors), in written but digital format (via Kindle), or on paper (via a physical book). 
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Feature table -->
+    <h2 id="c-features-mapped-across-segments">Features Mapped Across Segments</h2>
+    <p>The table below maps some potential feature ideas that would appeal to users across pricing tier and preferred consumption format.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th> Audible</th>
+            <th> Kindle / Digital</th>
+            <th> Paper</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Standard</td>
+            <td><strong>Listening Streaks</strong>: daily goals with streak rewards and early access at milestones<br><br><strong>Conditional Credit Rollover</strong>: roll over unused credit if you finish ≥1 book that month<br><br><strong>Listening Buddy</strong>: pair with a friend, track progress, unlock shared bonus credit</td>
+            <td><strong>Kindle + Audible Bundle Upgrade</strong>: matching Kindle ebook at a steep discount when a Standard member picks their credit title<br><br><strong>Immersion Reading Milestone</strong>: first time reading + listening together unlocks a bonus credit</td>
+            <td><strong>QR Bookmark Insert</strong>: physical books shipped with a bookmark linking to the Audible audiobook<br><br><strong>Referral Gift Card</strong>: $5 Audible trial gift card included in certain Amazon book deliveries</td>
+          </tr>
+          <tr>
+            <td>Premium</td>
+            <td><strong>AI Listening Assistant</strong>: personalized 3-month listening roadmap based on genres, mood, and pace<br><br><strong>Originals Early Drop</strong>: Premium members get Audible Originals 2 weeks early</td>
+            <td><strong>Goodreads Deep Sync</strong>: auto-mark shelves as "read" when you finish in Immersion mode<br><br><strong>Chapter Digest</strong>: auto-generated 3-sentence recap of any chapter you missed</td>
+            <td><strong>Swap Program</strong>: scan a physical book barcode to get the Audible version at 50% off<br><br><strong>Curated Box Add-On</strong>: optional quarterly physical book box, curated by listening history<br><br><strong>Unified Annotation Layer</strong>: photo-scan physical margin notes, synced with Audible/Kindle annotations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Features to build -->
+    <h2 id="c-which-features-should-audible-build">Which Features Should Audible Build?</h2>
+
+    <!-- Simple -->
+    <div class="feature-block">
+      <div class="complexity-badge">Simple Solution</div>
+      <div class="feature-tier">Standard Tier · Prefers Audio Consumption</div>
+      <h3>Conditional Credit Rollover</h3>
+      <p>The most common reason Standard subscribers cancel isn't that they dislike Audible. It's that they feel like they're wasting money on a month they didn't use. Tying rollover to completion flips that dynamic: instead of punishing inactivity with an expiring credit, Audible rewards follow-through. Users who finish a book feel accomplished and users who know a rollover is on the line have a reason to open the app.</p>
+      <img src="audibleSimple.png" alt="A descriptive description of the image">
+    </div>
+
+    <!-- Middle road -->
+    <div class="feature-block">
+      <div class="complexity-badge">Middle Road</div>
+      <div class="feature-tier">Premium Tier · Prefers Audio/Kindle Consumption</div>
+      <h3>Chapter Digest</h3>
+      <p>The 40–60% abandonment cliff is one of the most consistent patterns in long-form nonfiction listening. Users fall behind, lose the thread, and stop opening the app. Chapter Digest addresses the actual reason people abandon books: not boredom, but the social friction of feeling lost. A three-sentence recap lowers the re-entry cost to almost zero. Instead of starting over or pretending to remember, the listener just picks up where they left off. This is the difference between a book that gets finished and one that sits in the queue for six months, and a subscriber who stays versus one who decides Audible "isn't really for them."</p>
+      <img src="audibleMedium.png" alt="A descriptive description of the image">
+    </div>
+
+    <!-- Moonshot -->
+    <div class="feature-block">
+      <div class="complexity-badge">Moonshot</div>
+      <div class="feature-tier">Premium Tier · Prefers Audio Consumption</div>
+      <h3>AI Listening Assistant</h3>
+      <p>Most people don't cancel Audible because they found something better, they cancel because the momentum ran out. They finished a book, didn't know what to listen to next, and the app sat unopened long enough that the subscription started to feel optional. The AI assistant closes that gap before it opens. A personalized roadmap that knows your pace, your mood, and your history means there's always something queued, and the longer you use it, the more irreplaceable it becomes. 
+      </p>
+      <img src="audibleMoonshot.png" alt="A descriptive description of the image">
+    </div>
+
+    <hr class="divider">
+
+    <!-- Conclusion -->
+    <h2 id="c-conclusion">Conclusion</h2>
+
+    <div class="conclusion-block">
+      <p>Audible's retention problem isn't that users dislike the product. It's that the product doesn't fight hard enough to stay in their lives. Credits expire. Books get abandoned. Queues run dry.</p>
+      <p>Each of these is a small friction, but compounded across millions of subscribers, they represent a quiet churn engine running in the background. <strong>Conditional Credit Rollover removes the guilt. Chapter Digest removes the dropout. The AI Assistant removes the empty queue.</strong></p>
+      <p>Together they address not what Audible offers, but whether users actually experience it, which is ultimately the only engagement metric that matters.</p>
+    </div>
+
+  </div><!-- /post-body -->
+
+  <footer class="post-footer">
+    ariabarve.com &nbsp;·&nbsp; Product Strategy
+  </footer>
+
+</article>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>

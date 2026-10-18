@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing · Aria Barve</title>
+<meta name="description" content="Product case studies by Aria Barve: teardowns and feature proposals for grocery apps, Audible, Pinterest and Netflix.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<!-- HOW TO ADD A NEW POST: copy one <tr> in the table below, newest first,
+     then renumber the idx column and the "rows" count under the table. -->
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="../index.html" aria-label="Home">ab</a>
+      <span>writing/index.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="../index.html">← index</a>
+      <a class="tb" href="../index.html#c-proj">work</a>
+      <a class="tb" href="../blog/blog.html" aria-current="page">writing</a>
+      <a class="tb" href="../index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ intro</a>
+      <a href="#c-posts">§ posts</a>
+    </nav>
+    <div class="meta">
+      <div>posts · 4</div>
+      <div><a href="../index.html">← home</a></div>
+      <div>tz · new haven <span id="clock"></span></div>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+    <section id="c-top" class="cell md">
+      <div class="crumb"><span class="cell-label">markdown</span><a href="../index.html">← back to home</a></div>
+      <h1 class="title title--sm">Case <em>studies</em></h1>
+      <p class="lede lede--sm">Teardowns of products I use, and the features I'd argue for building. Each one works through who the user is, what the landscape already covers, and <em class="accent">which bets are worth the disruption.</em></p>
+    </section>
+
+    <section class="cell" data-cell="posts" id="c-posts">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.writing.<span class="fn">sort_values</span>(<span class="str">"date"</span>, ascending=<span class="kw">False</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="out-body">
+          <table class="df writing">
+            <thead><tr><th></th><th></th><th>title</th><th>topic</th><th>date</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="idx">0</td>
+                <td><a href="shopping-apps.html" tabindex="-1" aria-hidden="true"><img class="thumb" src="grocery.jpg" alt="" loading="lazy"></a></td>
+                <td><a class="proj-link" href="shopping-apps.html">What Makes a Good Shopping App? ↗</a><div class="desc">Notes from trying AnyList, OurGroceries, Cozi, Flipp and GroceryGo. Every grocery trip has four moments, each app owns exactly one, and the one it picks is almost predicted by how it makes money.</div></td>
+                <td>product teardown</td>
+                <td class="stat">August 11, 2026</td>
+              </tr>
+              <tr>
+                <td class="idx">1</td>
+                <td><a href="audible.html" tabindex="-1" aria-hidden="true"><img class="thumb" src="audibleLogo.jpeg" alt="" loading="lazy"></a></td>
+                <td><a class="proj-link" href="audible.html">Increasing Audible's Customer Lifetime Value ↗</a><div class="desc">Spotify now bundles audiobooks for 276M Premium subscribers, quietly eroding the case for a standalone subscription. Conditional credit rollover and chapter digests, features aimed at the abandonment cliff rather than at acquisition.</div></td>
+                <td>product management</td>
+                <td class="stat">June 9, 2026</td>
+              </tr>
+              <tr>
+                <td class="idx">2</td>
+                <td><a href="pinterest.html" tabindex="-1" aria-hidden="true"><img class="thumb" src="pinterestLogo.jpg" alt="" loading="lazy"></a></td>
+                <td><a class="proj-link" href="pinterest.html">Expanding Pinterest's User Base ↗</a><div class="desc">600M+ monthly users, and 77% of them are women, which makes men the single largest untapped segment on the platform. Growth features mapped across intent: skill progression boards, collaborative planning rooms, gear integration.</div></td>
+                <td>product management</td>
+                <td class="stat">May 23, 2026</td>
+              </tr>
+              <tr>
+                <td class="idx">3</td>
+                <td><a href="netflix.html" tabindex="-1" aria-hidden="true"><img class="thumb" src="netflixLogo.jpg" alt="" loading="lazy"></a></td>
+                <td><a class="proj-link" href="netflix.html">Adding Social Features to Netflix ↗</a><div class="desc">Netflix drives the cultural conversation without capturing any of it. Three features, shared watchlists, native watch parties and live cast Q&amp;As, that wrap a social layer around viewing without competing with it.</div></td>
+                <td>product management</td>
+                <td class="stat">May 19, 2026</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="shape">4 rows × 4 columns</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>

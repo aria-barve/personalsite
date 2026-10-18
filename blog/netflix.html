@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adding Social Features to Netflix</title>
+<meta name="description" content="Adding Social Features to Netflix">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body style="--accent: #E50914">
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="../index.html" aria-label="Home">ab</a>
+      <span>writing/netflix.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="../index.html">← index</a>
+      <a class="tb" href="../index.html#c-proj">work</a>
+      <a class="tb" href="../blog/blog.html" aria-current="page">writing</a>
+      <a class="tb" href="../index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ top</a>
+      <a href="#c-why-add-social-features">§ why add social features?</a>
+      <a href="#c-who-are-these-social-features-for">§ who are these social features for?</a>
+      <a href="#c-features-landscape">§ features landscape</a>
+      <a href="#c-three-features-worth-building">§ three features worth building</a>
+      <a href="#c-the-big-picture">§ the big picture</a>
+    </nav>
+    <div class="meta">
+      <div>product management</div>
+      <div><a href="blog.html">← all writing</a></div>
+      <div>tz · new haven <span id="clock"></span></div>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+<div class="cell post" id="c-top">
+
+  <div class="post-header">
+    <div class="crumb"><span class="cell-label">markdown</span><a href="blog.html">← all writing</a></div>
+    <h1>Adding Social Features to <span style="color: red;">Netflix</span></h1>
+  </div>
+
+  <div class="post-body">
+
+    <h2 id="c-why-add-social-features">Why Add Social Features?</h2>
+
+    <p>With over 325 million subscribers and one of the strongest content libraries, Netflix has spent the last decade perfecting its solo viewing experience. From features like autoplay to personalized recommendations, Netflix's design decisions are optimized for one person. But the way people relate to Netflix's content has shifted. Moments from <em>Squid Game</em> and <em>Wednesday</em> get discussed and shared across every social platform except the one where people actually watched them. Netflix is driving cultural conversation without capturing any of it.</p>
+
+    <p>The opportunity is clear: social features that bring the conversation back to Netflix. This would serve two business goals simultaneously. First, social features would attract new users through network effects (if your friends are watching together on Netflix then you need Netflix). Second, social features increase engagement among existing users by giving them more reasons to stay on the platform longer.</p>
+
+    <h2 id="c-who-are-these-social-features-for">Who Are These Social Features For?</h2>
+
+    <p>Before designing anything, it's worth thinking about which users this problem affects the most. Netflix's user base can be segmented in several ways (age, geographic location, viewing behavior, etc.) but I believe the most useful segmentation here is social context. Who are people watching with, and what do they want from that experience?</p>
+
+    <p>Three segments stand out:</p>
+
+    <ol>
+      <li><strong>Co-watchers</strong> are users who already share a viewing experience. This could be couples watching from different cities, friend groups coordinating watch parties over text, or families picking a movie together. Their pain point isn't discovery. It's coordination. They want Netflix to do what they're currently doing manually across other apps.</li>
+      <li><strong>Culturally motivated viewers</strong> watch to participate in a broader social conversation. They're users posting reactions on apps like Twitter or Reddit. They're engaged with Netflix's content, just not on Netflix.</li>
+      <li><strong>Solo viewers</strong> are the largest group by volume but the weakest target for social features. They're on Netflix for passive consumption, and adding social friction to their experience risks annoying them without upside.</li>
+    </ol>
+
+    <p>In my opinion the right design approach would be to build for co-watchers and culturally motivated viewers with enough optionality that solo browsers can ignore social features entirely.</p>
+
+    <h2 id="c-features-landscape">Features Landscape</h2>
+
+    <p>To think systematically about the opportunity I have mapped out features across two dimensions: who they serve (solo vs group viewers vs culturally motivated viewers) and how much they disrupt Netflix's core experience (low vs high disruption).</p>
+
+    <div class="table-wrap"><table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Solo Viewer</th>
+          <th>Group Viewers</th>
+          <th>Culturally Motivated Viewers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low Disruption</td>
+          <td>
+            <ul>
+              <li>Friend activity feeds ("what your friends are watching…")</li>
+              <li>Shared watchlists</li>
+              <li>Social recommendations</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Synchronized watch parties with a chat sidebar</li>
+              <li>Shared watchlists with voting</li>
+              <li>Post-show discussion threads</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Comments sections under Netflix content similar to forums on platforms like Reddit or Instagram comments</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>High Disruption</td>
+          <td>
+            <ul>
+              <li>Full social network with following, follower graphs and public profiles</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Real-time video watch alongs (FaceTime-style built into Netflix)</li>
+              <li>Group voting on interactive content</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Live events hosted by creators or cast</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="c-three-features-worth-building">Three Features Worth Building</h2>
+
+    <div class="feature-tag">Simple</div>
+    <h3>1. Synchronized Watchlists</h3>
+
+    <p>The simplest version of social Netflix is a shared watchlist. Users create a group list, add titles, and can see what their friends have added to the list. No live coordination required, and no changes to the viewing experience itself. It's a pre-watch social layer that solves the problem of "what should we watch".</p>
+
+    <img src="netflixSimple.png" alt="A descriptive description of the image">
+
+
+    <hr>
+
+    <div class="feature-tag">Middle Ground</div>
+    <h3>2. Watch Party with Chat</h3>
+
+    <p>The more compelling bet is native watch parties: synchronized playback for a group with a collapsible chat sidebar and real-time emoji reactions. This is a feature that Teleparty has proven out. The question is whether Netflix should own it.</p>
+
+    <p>Keeping users in a third party app for the social layer means Netflix loses data, engagement time, and the opportunity to deepen the relationship between social interaction and content discovery. A native watch party also enables features that Teleparty can't: reactions that tie to specific timestamps, post-show prompts that redirect the conversation towards Netflix's catalog, and group recommendations based on shared viewing history.</p>
+
+    <p>The key design principle here is restraint. The chat sidebar should be collapsible and opt-in so that it never interferes with the solo experience. Emoji reactions that float briefly over the video (rather than cluttering a sidebar) will make the feature feel like watching with friends, not like a chat app that also plays video.</p>
+
+    <img src="netflixMedium.png" alt="Watch party with chat mockup"> 
+
+    <hr>
+
+    <div class="feature-tag">Moonshot</div>
+    <h3>3. Live Cast Q&amp;A Events</h3>
+
+    <p>The most ambitious idea reimagines Netflix as a live event platform. After a high profile season finale or series premier, Netflix hosts a live Q&amp;A with the show's cast, streamed directly in-app with fans submitting and upvoting questions in real time.</p>
+
+    <p>This is not a novel format. YouTube and Instagram Live have all run creator Q&amp;As. What makes it compelling for Netflix is context: the audience is already there and invested in the content. A live cast event immediately after the finale of a show like Stranger Things would capture peak engagement at exactly the right moment.</p>
+
+    <p>The upvoted question queue is the most difficult design decision. With millions of viewers, an open chat becomes noisy. A voting mechanism where fans collectively surface the best questions would keep the experience high-quality and scalable while making participation feel meaningful even for users whose questions don't get answered.</p>
+
+    <img src="netflixMoonshot.png" alt="Live cast Q&A mockup"> 
+
+    <hr>
+
+    <h2 id="c-the-big-picture">The Big Picture</h2>
+
+    <p>Each of these features targets a different part of the social opportunity. Coordination before watching, connection during, and community after. Together they represent a coherent thesis: Netflix should build a social layer that wraps around the viewing experience without competing with it.</p>
+
+    <p>The risk here is to avoid overreach. A Netflix social network through public profiles, follower graphs and activity feeds would solve a problem users don't actually have on a streaming platform. The features worth building are the ones that make watching with others easier and more memorable, not the ones that turn Netflix into another social app competing for attention in an already crowded space.</p>
+
+    <p>Netflix's content creates the moment. Social features like synchronized watchlists, watch parties with chat, and live cast Q&amp;A sessions give people somewhere to share them.</p>
+
+  </div>
+
+  <div class="post-footer">
+    <span>PM Portfolio</span>
+    <span>Product Management &nbsp;·&nbsp; Netflix</span>
+  </div>
+
+</div>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>
