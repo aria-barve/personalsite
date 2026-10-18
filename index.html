@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aria Barve</title>
+<meta name="description" content="Aria Barve: Statistics & Data Science and Applied Mathematics at Yale. AI Product Management Intern at Xpansiv, Microsoft AI Innovation Fellow, founder of 21Meals.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ TOOLBAR ============ -->
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="index.html" aria-label="Home">ab</a>
+      <span>aria_barve.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <div class="actions">
+      <button class="tb" type="button" id="run-all">▶ run all</button>
+      <button class="tb" type="button" id="restart">↺ restart kernel</button>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-intro">§ intro</a>
+      <a href="#c-now">§ currently</a>
+      <a href="#c-proj">§ projects</a>
+      <a href="#c-info">§ background</a>
+      <a href="blog/blog.html">§ writing ↗</a>
+      <a href="#c-contact">§ contact</a>
+    </nav>
+    <div class="meta">
+      <div>cells · 8</div>
+      <div>runs · <span id="runs">5</span></div>
+      <div>tz · new haven <span id="clock"></span></div>
+    </div>
+  </aside>
+
+  <!-- ============ NOTEBOOK ============ -->
+  <main class="notebook">
+
+    <!-- markdown: title -->
+    <section id="c-intro" class="cell md">
+      <div class="cell-label">markdown</div>
+      <h1 class="title">Aria Barve</h1>
+      <p class="lede">Statistics, data science, applied math at Yale. Interested in <em class="accent">product development, marketplaces, AI, and operations.</em></p>
+      <p class="hint">This page is a notebook. Hit ▶ on any cell, or run all.</p>
+    </section>
+
+    <!-- code: now -->
+    <section id="c-now" class="cell" data-cell="now">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code"><span class="kw">import</span> aria
+
+aria.<span class="fn">now</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="out-body">
+          <table class="df now">
+            <thead><tr><th></th><th>role</th><th>org</th><th>status</th></tr></thead>
+            <tbody>
+              <tr><td class="idx">0</td><td>AI Product Management Intern<div class="sub">trading infra for environmental derivatives</div></td><td class="org">Xpansiv</td><td class="stat">active</td></tr>
+              <tr><td class="idx">1</td><td>AI Innovation Fellow<div class="sub">genAI for edtech</div></td><td class="org">Microsoft</td><td class="stat">active</td></tr>
+              <tr><td class="idx">2</td><td>B.S. Statistics &amp; Data Science, Applied Math</td><td class="org">Yale ’29</td><td class="stat dim">sophomore</td></tr>
+            </tbody>
+          </table>
+          <div class="shape">based in chicago · new york city · new haven</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- markdown: work -->
+    <section class="heading">
+      <h2>Selected <em>work</em></h2>
+      <p>Four things I've built or researched, sorted by what they moved.</p>
+    </section>
+
+    <!-- code: projects -->
+    <section id="c-proj" class="cell" data-cell="proj">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.projects.<span class="fn">sort_values</span>(<span class="str">"impact"</span>, ascending=<span class="kw">False</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="out-body">
+          <table class="df projects">
+            <thead><tr><th></th><th>project</th><th>where</th><th>impact</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="idx">0</td>
+                <td><a class="proj-link" href="ad-engine.html">AI Ad Campaign Engine ↗</a><div class="desc">Market + budget in; creative, approvals and launch out. No manual media buying.</div></td>
+                <td>Instawork<div class="sub">Series D, backed by Benchmark</div></td>
+                <td class="stat">300+ signups<div class="sub-mono">first live run</div></td>
+              </tr>
+              <tr>
+                <td class="idx">1</td>
+                <td><a class="proj-link" href="21meals.html">21Meals ↗</a><div class="desc">Pantry-first meal planning. Launched solo at 16; now a consumer app rebuild.</div></td>
+                <td>Independent<div class="sub">founder</div></td>
+                <td class="stat">Tsai CITY grant<div class="sub-mono">yale funding</div></td>
+              </tr>
+              <tr>
+                <td class="idx">2</td>
+                <td><a class="proj-link" href="ieee-paper.html">Bluetooth Social Networking ↗</a><div class="desc">Use-case research and test suites; presented to 60+ NUS delegates.</div></td>
+                <td>Discovery Partners<div class="sub">University of Illinois</div></td>
+                <td class="stat">IEEE paper<div class="sub-mono">compsac 2025</div></td>
+              </tr>
+              <tr>
+                <td class="idx">3</td>
+                <td><a class="proj-link" href="cochlear-research.html">Cochlear Implant ML ↗</a><div class="desc">SVM classifiers matching neural responses to spoken words.</div></td>
+                <td>Northwestern<div class="sub">Dept. of Otolaryngology</div></td>
+                <td class="stat">70%+ accuracy<div class="sub-mono">classification</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="shape">4 rows × 3 columns</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- markdown: background -->
+    <section class="heading">
+      <h2>The <em>fine print</em></h2>
+    </section>
+
+    <!-- code: info -->
+    <section id="c-info" class="cell" data-cell="info">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.<span class="fn">info</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="info">
+          <div class="cls">&lt;class 'aria.Person'&gt;</div>
+          <dl class="kv">
+            <dt>school</dt><dd>Yale University, class of 2029</dd>
+            <dt>majors</dt><dd>Statistics &amp; Data Science · Applied Mathematics</dd>
+            <dt>coursework</dt><dd>Linear Algebra · Multivariable Calc · Probability · Game Theory · Discrete Math · Econ</dd>
+            <dt>honors</dt><dd>IEEE COMPSAC 2025 co-author · Tsai CITY Milestone Funding · NCWIT Aspirations in Computing</dd>
+            <dt>certs</dt><dd>MIT IDSS Data Science &amp; ML · DeepLearning.AI Deep Learning, Agentic AI</dd>
+            <dt>stack</dt><dd>Python · SQL · R · TypeScript · Java · ML/NLP · LLM workflows · GCP</dd>
+            <dt>clubs</dt><dd>Women's Leadership Initiative · Yale Entrepreneurial Society · Club Figure Skating</dd>
+            <dt>off_hours</dt><dd>figure skating · writing · trying new restaurants · 10k daily steps</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- code: contact -->
+    <section id="c-contact" class="cell" data-cell="contact">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.<span class="fn">contact</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="contact">
+          <div class="contact-line">Building something? <em class="accent">Let's talk.</em></div>
+          <div class="links">
+            <a class="pill primary" href="mailto:aria.barve@yale.edu">aria.barve@yale.edu ↗</a>
+            <a class="pill" href="https://linkedin.com/in/ariabarve">linkedin ↗</a>
+            <a class="pill" href="blog/blog.html">case studies ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve</span>
+      <span>chicago · new york city · new haven</span>
+    </footer>
+  </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
