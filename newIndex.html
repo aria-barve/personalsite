@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aria Barve</title>
+<meta name="description" content="Aria Barve: Statistics & Data Science and Applied Mathematics at Yale. AI Product Management Intern at Xpansiv, Microsoft AI Innovation Fellow, founder of 21Meals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3F3F1;
+    --paper: #FFFFFF;
+    --code-bg: #F9F9F7;
+    --soft: #F7F7F5;
+    --ink: #141417;
+    --ink-2: #3A3A40;
+    --muted: #6B6B72;
+    --line: #E4E4E0;
+    --line-2: #EDEDEA;
+    --line-3: #F0F0ED;
+    --accent: #3D4BFF;
+    --ok: #0F7B4F;
+    --busy: #D9480F;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Geist', system-ui, -apple-system, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --gutter: 76px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { color: var(--accent); }
+  pre { margin: 0; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- toolbar ---------- */
+  .toolbar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .toolbar-inner { max-width: 1180px; margin: 0 auto; padding: 10px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; font-family: var(--mono); font-size: 13px; }
+  .file { display: flex; align-items: center; gap: 12px; }
+  .logo { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; background: var(--ink); color: #fff; border-radius: 6px; font-size: 12px; }
+  .saved { color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .tb { min-height: 36px; padding: 0 12px; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; font-family: var(--mono); font-size: 13px; transition: background .2s ease; }
+  .tb:hover { background: #ECECE9; color: var(--ink); }
+  .kernel { display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; }
+  .kernel.is-busy .dot { background: var(--busy); animation: blink .8s ease-in-out infinite; }
+
+  /* ---------- layout ---------- */
+  .layout { max-width: 1180px; margin: 0 auto; padding: 40px 24px 80px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .sidebar { flex: 1 1 200px; max-width: 100%; font-family: var(--mono); font-size: 13px; position: sticky; top: 80px; }
+  .eyebrow { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+  .outline { margin-top: 14px; display: flex; flex-direction: column; gap: 2px; }
+  .outline a { padding: 8px 10px; border-radius: 6px; transition: background .2s ease; }
+  .outline a:hover { background: #ECECE9; color: var(--ink); }
+  .meta { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); line-height: 1.8; }
+  .notebook { flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ---------- cells ---------- */
+  .cell { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color .2s ease, box-shadow .2s ease; }
+  .cell:hover { border-color: #D6D6D1; box-shadow: 0 1px 0 var(--line); }
+  .md { padding: 56px 48px 48px; }
+  .cell-label { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .title { margin: 24px 0 0; font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 10vw, 136px); line-height: .9; letter-spacing: -.025em; }
+  .lede { margin: 28px 0 0; max-width: 620px; font-family: var(--serif); font-size: clamp(24px, 2.6vw, 32px); line-height: 1.25; color: var(--ink-2); }
+  .hint { margin: 24px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  em.accent, .accent { color: var(--accent); }
+  em { font-style: italic; }
+
+  .cell-in { display: grid; grid-template-columns: var(--gutter) minmax(0, 1fr); background: var(--code-bg); border-bottom: 1px solid var(--line-2); }
+  .cell-in .gutter { padding: 18px 0 0 16px; display: flex; flex-direction: column; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--accent); }
+  .run { width: 30px; height: 30px; border: 1px solid var(--line); background: var(--paper); border-radius: 6px; font-size: 11px; transition: background .2s ease, color .2s ease; }
+  .run:hover { background: var(--ink); color: #fff; }
+  .code { padding: 18px 24px 18px 0; font-family: var(--mono); font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+  .kw { color: #7C3AED; } .fn { color: #2563EB; } .str { color: #0F7B4F; } .cm { color: #77777E; }
+
+  .cell-out { display: grid; grid-template-columns: var(--gutter) minmax(0, 1fr); }
+  .cell-out[hidden] { display: none; }
+  .cell-out.show { animation: rise .35s ease; }
+  .cell-out .gutter { padding: 20px 0 0 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .out-body { padding: 16px 24px 20px 0; overflow-x: auto; }
+
+  /* ---------- dataframes ---------- */
+  .df { border-collapse: collapse; width: 100%; font-size: 15px; }
+  .df th { padding: 8px 12px; font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); text-align: left; border-bottom: 1px solid var(--line); }
+  .df td { padding: 12px; border-bottom: 1px solid var(--line-3); vertical-align: top; }
+  .df tr:last-child td { border-bottom: 0; }
+  .df th:first-child, .df td:first-child { padding-left: 0; }
+  .df tbody tr:hover td { background: var(--soft); }
+  .df .idx { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .df .org { font-weight: 500; }
+  .df .stat { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .df .stat.dim { color: var(--muted); }
+  .df.projects { min-width: 620px; }
+  .df.projects td { padding-top: 16px; padding-bottom: 16px; }
+  .df.now { min-width: 440px; }
+  .proj-link { font-family: var(--serif); font-size: 24px; border-bottom: 1px solid #D6D6D1; }
+  .proj-link:hover { border-bottom-color: var(--accent); }
+  .desc { margin-top: 6px; font-size: 14px; line-height: 1.55; color: var(--muted); max-width: 380px; }
+  .sub { font-size: 13px; color: var(--muted); }
+  .sub-mono { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .shape { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  /* ---------- markdown headings ---------- */
+  .heading { padding: 36px 8px 6px; }
+  .heading h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5vw, 60px); line-height: 1; }
+  .heading p { margin: 10px 0 0; font-size: 16px; color: var(--muted); }
+
+  /* ---------- 21meals widget ---------- */
+  .widget { padding: 18px 24px 24px 0; display: flex; flex-wrap: wrap; gap: 24px; }
+  .chips { flex: 1 1 280px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+  .chip { min-height: 38px; padding: 0 14px; border-radius: 999px; font-family: var(--mono); font-size: 13px; background: var(--paper); color: var(--ink-2); border: 1px solid #DCDCD7; transition: all .15s ease; }
+  .chip:hover { border-color: #B9B9B3; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .result { flex: 1 1 260px; min-height: 150px; background: var(--soft); border: 1px solid var(--line-2); border-radius: 12px; padding: 20px 22px; }
+  .result .waiting { font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .dish { margin-top: 6px; font-family: var(--serif); font-size: 38px; line-height: 1; }
+  .dish-meta { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .fade { animation: rise .35s ease; }
+
+  /* ---------- info ---------- */
+  .info { padding: 18px 24px 22px 0; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; }
+  .info .cls { color: var(--muted); }
+  .kv { margin-top: 14px; display: grid; grid-template-columns: minmax(110px, 160px) minmax(0, 1fr); gap: 10px 20px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; }
+
+  /* ---------- contact ---------- */
+  .contact { padding: 22px 24px 32px 0; }
+  .contact-line { font-family: var(--serif); font-size: clamp(36px, 5vw, 60px); line-height: 1.02; }
+  .links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--mono); font-size: 13px; }
+  .pill { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1px solid var(--line); border-radius: 10px; transition: background .2s ease; }
+  .pill:hover { background: #ECECE9; color: var(--ink); }
+  .pill.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .pill.primary:hover { background: #2A2A30; color: #fff; }
+
+  footer { padding: 24px 8px 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
+
+  @media (max-width: 720px) {
+    :root { --gutter: 58px; }
+    .md { padding: 36px 24px 32px; }
+    .sidebar { position: static; }
+    .cell-in .gutter, .cell-out .gutter { padding-left: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOOLBAR ============ -->
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <span class="logo" aria-hidden="true">ab</span>
+      <span>aria_barve.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <div class="actions">
+      <button class="tb" type="button" id="run-all">▶ run all</button>
+      <button class="tb" type="button" id="restart">↺ restart kernel</button>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-intro">§ intro</a>
+      <a href="#c-now">§ currently</a>
+      <a href="#c-proj">§ projects</a>
+      <a href="#c-meals">§ try 21meals</a>
+      <a href="#c-info">§ background</a>
+      <a href="#c-contact">§ contact</a>
+    </nav>
+    <div class="meta">
+      <div>cells · 9</div>
+      <div>runs · <span id="runs">5</span></div>
+      <div>tz · new haven <span id="clock"></span></div>
+    </div>
+  </aside>
+
+  <!-- ============ NOTEBOOK ============ -->
+  <main class="notebook">
+
+    <!-- markdown: title -->
+    <section id="c-intro" class="cell md">
+      <div class="cell-label">markdown</div>
+      <h1 class="title">Aria Barve</h1>
+      <p class="lede">Statistics, data science &amp; applied math at Yale. I build products where <em class="accent">the data decides what ships.</em></p>
+      <p class="hint">This page is a notebook. Hit ▶ on any cell, or run all.</p>
+    </section>
+
+    <!-- code: now -->
+    <section id="c-now" class="cell" data-cell="now">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code"><span class="kw">import</span> aria
+
+aria.<span class="fn">now</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="out-body">
+          <table class="df now">
+            <thead><tr><th></th><th>role</th><th>org</th><th>status</th></tr></thead>
+            <tbody>
+              <tr><td class="idx">0</td><td>AI Product Management Intern</td><td class="org">Xpansiv</td><td class="stat">active</td></tr>
+              <tr><td class="idx">1</td><td>AI Innovation Fellow</td><td class="org">Microsoft</td><td class="stat">active</td></tr>
+              <tr><td class="idx">2</td><td>Founder</td><td class="org">21Meals</td><td class="stat">rebuilding</td></tr>
+              <tr><td class="idx">3</td><td>B.S. Statistics &amp; Data Science, Applied Math</td><td class="org">Yale ’29</td><td class="stat dim">sophomore</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- markdown: work -->
+    <section class="heading">
+      <h2>Selected <em>work</em></h2>
+      <p>Four things I've built or researched, sorted by what they moved.</p>
+    </section>
+
+    <!-- code: projects -->
+    <section id="c-proj" class="cell" data-cell="proj">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.projects.<span class="fn">sort_values</span>(<span class="str">"impact"</span>, ascending=<span class="kw">False</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="out-body">
+          <table class="df projects">
+            <thead><tr><th></th><th>project</th><th>where</th><th>impact</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="idx">0</td>
+                <td><a class="proj-link" href="https://www.ariabarve.com/ad-engine.html">AI Ad Campaign Engine ↗</a><div class="desc">Market + budget in; creative, approvals and launch out. No manual media buying.</div></td>
+                <td>Instawork<div class="sub">product ops</div></td>
+                <td class="stat">300+ signups<div class="sub-mono">first live run</div></td>
+              </tr>
+              <tr>
+                <td class="idx">1</td>
+                <td><a class="proj-link" href="https://www.ariabarve.com/21meals.html">21Meals ↗</a><div class="desc">Pantry-first meal planning. Launched solo at 16; now a consumer app rebuild.</div></td>
+                <td>Independent<div class="sub">founder</div></td>
+                <td class="stat">Tsai CITY grant<div class="sub-mono">yale funding</div></td>
+              </tr>
+              <tr>
+                <td class="idx">2</td>
+                <td><a class="proj-link" href="https://www.ariabarve.com/ieee-paper.html">Bluetooth Social Networking ↗</a><div class="desc">Use-case research and test suites; presented to 60+ NUS delegates.</div></td>
+                <td>Discovery Partners<div class="sub">research</div></td>
+                <td class="stat">IEEE paper<div class="sub-mono">compsac 2025</div></td>
+              </tr>
+              <tr>
+                <td class="idx">3</td>
+                <td><a class="proj-link" href="https://www.ariabarve.com/cochlear-research.html">Cochlear Implant ML ↗</a><div class="desc">SVM classifiers matching neural responses to spoken words.</div></td>
+                <td>Northwestern<div class="sub">feinberg research</div></td>
+                <td class="stat">70%+ accuracy<div class="sub-mono">classification</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="shape">4 rows × 3 columns</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- code: 21meals widget -->
+    <section id="c-meals" class="cell" data-cell="meals">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code"><span class="cm"># tap what's in your kitchen</span>
+<span class="kw">from</span> twentyonemeals <span class="kw">import</span> suggest
+
+suggest(pantry=widgets.<span class="fn">Pantry</span>())</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="widget">
+          <div class="chips" id="chips" role="group" aria-label="Pantry ingredients"></div>
+          <div class="result" id="result" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- markdown: background -->
+    <section class="heading">
+      <h2>The <em>fine print</em></h2>
+    </section>
+
+    <!-- code: info -->
+    <section id="c-info" class="cell" data-cell="info">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.<span class="fn">info</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="info">
+          <div class="cls">&lt;class 'aria.Person'&gt;</div>
+          <dl class="kv">
+            <dt>school</dt><dd>Yale University, class of 2029</dd>
+            <dt>majors</dt><dd>Statistics &amp; Data Science · Applied Mathematics</dd>
+            <dt>coursework</dt><dd>Linear Algebra · Multivariable Calc · Probability · Game Theory · Discrete Math · Econ</dd>
+            <dt>honors</dt><dd>IEEE COMPSAC 2025 co-author · Tsai CITY Milestone Funding · NCWIT Aspirations in Computing</dd>
+            <dt>certs</dt><dd>MIT IDSS Data Science &amp; ML · DeepLearning.AI Deep Learning, Agentic AI</dd>
+            <dt>stack</dt><dd>Python · SQL · R · TypeScript · Java · ML/NLP · LLM workflows · GCP</dd>
+            <dt>clubs</dt><dd>Women's Leadership Initiative · Yale Entrepreneurial Society · Club Figure Skating</dd>
+            <dt>off_hours</dt><dd>new recipes · figure skating · 10k steps a day</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- code: contact -->
+    <section id="c-contact" class="cell" data-cell="contact">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.<span class="fn">contact</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="contact">
+          <div class="contact-line">Building something? <em class="accent">Let's talk.</em></div>
+          <div class="links">
+            <a class="pill primary" href="mailto:aria.barve@yale.edu">aria.barve@yale.edu ↗</a>
+            <a class="pill" href="https://linkedin.com/in/ariabarve">linkedin ↗</a>
+            <a class="pill" href="https://www.ariabarve.com/blog/blog.html">case studies ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 aria barve</span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  /* ---------- notebook kernel ---------- */
+  const cells = {};
+  document.querySelectorAll('[data-cell]').forEach((el) => {
+    cells[el.dataset.cell] = {
+      el,
+      labels: el.querySelectorAll('[data-label]'),
+      out: el.querySelector('.cell-out'),
+      btn: el.querySelector('.run'),
+    };
+  });
+  const ids = Object.keys(cells);
+
+  const state = { counts: {}, running: new Set(), next: 1 };
+  ids.forEach((id) => { state.counts[id] = state.next++; }); // start fully executed
+
+  const kernelEl = document.getElementById('kernel');
+  const kernelState = document.getElementById('kernel-state');
+  const runsEl = document.getElementById('runs');
+
+  function renderCell(id) {
+    const c = cells[id];
+    const busy = state.running.has(id);
+    const n = state.counts[id];
+    const label = busy ? '[*]:' : n ? `[${n}]:` : '[ ]:';
+    c.labels.forEach((l) => { l.textContent = label; });
+    const visible = !busy && !!n;
+    if (visible && c.out.hidden) {
+      c.out.hidden = false;
+      c.out.classList.remove('show'); void c.out.offsetWidth; c.out.classList.add('show');
+    } else if (!visible) {
+      c.out.hidden = true;
+    }
+  }
+
+  function renderKernel() {
+    const busy = state.running.size > 0;
+    kernelEl.classList.toggle('is-busy', busy);
+    kernelState.textContent = busy ? 'busy' : 'idle';
+    runsEl.textContent = Math.max(0, state.next - 1);
+  }
+
+  function renderAll() { ids.forEach(renderCell); renderKernel(); }
+
+  function runCell(id, delay = 550) {
+    if (state.running.has(id)) return;
+    state.running.add(id);
+    renderCell(id); renderKernel();
+    setTimeout(() => {
+      state.running.delete(id);
+      state.counts[id] = state.next++;
+      renderCell(id); renderKernel();
+    }, delay);
+  }
+
+  ids.forEach((id) => cells[id].btn.addEventListener('click', () => runCell(id)));
+
+  document.getElementById('run-all').addEventListener('click', () => {
+    ids.forEach((id, i) => runCell(id, 450 + i * 180));
+  });
+
+  document.getElementById('restart').addEventListener('click', () => {
+    state.counts = {}; state.running.clear(); state.next = 1;
+    renderAll();
+  });
+
+  /* ---------- clock ---------- */
+  const clockEl = document.getElementById('clock');
+  const tick = () => {
+    clockEl.textContent = new Date()
+      .toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })
+      .toLowerCase();
+  };
+  tick(); setInterval(tick, 30000);
+
+  /* ---------- 21meals widget ---------- */
+  const pantry = ['tomatoes', 'basil', 'garlic', 'rice', 'eggs', 'onion', 'spinach', 'chickpeas', 'pasta', 'lemon'];
+  const recipes = [
+    { name: 'Tomato basil risotto', time: '35 min', req: ['tomatoes', 'basil', 'garlic', 'rice'] },
+    { name: 'Shakshuka',            time: '25 min', req: ['eggs', 'tomatoes', 'onion', 'garlic'] },
+    { name: 'Chana masala',         time: '30 min', req: ['chickpeas', 'tomatoes', 'onion', 'garlic'] },
+    { name: 'Spinach fried rice',   time: '20 min', req: ['rice', 'eggs', 'spinach', 'garlic'] },
+    { name: 'Lemon garlic pasta',   time: '15 min', req: ['pasta', 'lemon', 'garlic', 'spinach'] },
+    { name: 'Pasta pomodoro',       time: '20 min', req: ['pasta', 'tomatoes', 'basil', 'garlic'] },
+    { name: 'Chickpea salad',       time: '10 min', req: ['chickpeas', 'lemon', 'onion', 'spinach'] },
+  ];
+  const selected = new Set(['tomatoes', 'basil', 'garlic']);
+  const chipsEl = document.getElementById('chips');
+  const resultEl = document.getElementById('result');
+
+  pantry.forEach((item) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.textContent = item;
+    b.setAttribute('aria-pressed', selected.has(item));
+    b.addEventListener('click', () => {
+      selected.has(item) ? selected.delete(item) : selected.add(item);
+      b.setAttribute('aria-pressed', selected.has(item));
+      renderMeal();
+    });
+    chipsEl.appendChild(b);
+  });
+
+  function renderMeal() {
+    let best = null;
+    recipes.forEach((r) => {
+      const have = r.req.filter((i) => selected.has(i)).length;
+      if (!best || have > best.have) best = { ...r, have };
+    });
+    if (!selected.size || !best || best.have === 0) {
+      resultEl.innerHTML = '<div class="waiting">&gt;&gt;&gt; waiting for ingredients…</div>';
+      return;
+    }
+    const missing = best.req.filter((i) => !selected.has(i));
+    resultEl.innerHTML = `
+      <div class="fade">
+        <div class="sub-mono">tonight</div>
+        <div class="dish">${best.name}</div>
+        <div class="dish-meta"><span>${best.time}</span><span class="accent">have ${best.have}/${best.req.length}</span></div>
+        <div class="sub-mono" style="margin-top:6px">${missing.length ? 'need: ' + missing.join(', ') : 'nothing to buy'}</div>
+      </div>`;
+  }
+
+  renderMeal();
+  renderAll();
+})();
+</script>
+</body>
+</html>

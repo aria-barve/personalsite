@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cochlear Implant ML &middot; Aria Barve</title>
+<meta name="description" content="Training SVM classifiers on guinea pig inferior colliculus recordings to decode spoken words from neural responses, and what that implies for cochlear implant coding strategies.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="index.html" aria-label="Home">ab</a>
+      <span>projects/cochlear.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="index.html">← index</a>
+      <a class="tb" href="index.html#c-proj" aria-current="page">work</a>
+      <a class="tb" href="blog/blog.html">writing</a>
+      <a class="tb" href="index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ overview</a>
+      <a href="#c-details">§ details</a>
+      <a href="#c-the-problem">§ the problem</a>
+      <a href="#c-what-i-built">§ what i built</a>
+      <a href="#c-what-happened">§ what happened</a>
+      <a href="#c-next">§ next</a>
+    </nav>
+    <div class="meta">
+      <div class="eyebrow">projects</div>
+      <nav class="outline" aria-label="Projects">
+      <a href="ad-engine.html">Outreach Engine</a>
+      <a href="21meals.html">21Meals</a>
+      <a href="ieee-paper.html">Bluetooth Networking</a>
+      <a href="cochlear-research.html" aria-current="page">Cochlear Implant ML</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+    <section id="c-top" class="cell md">
+      <div class="crumb"><span class="cell-label">markdown</span><a href="index.html#c-proj">← back to work</a></div>
+      <p class="kicker">Research &middot; Northwestern Feinberg</p>
+      <h1 class="title title--sm">Cochlear Implant ML</h1>
+      <p class="lede lede--sm">Cochlear implants restore hearing by stimulating the auditory nerve directly, but the coding
+        strategies that decide which electrode fires when are still largely hand-tuned. I trained support
+        vector machines on neural recordings from the guinea pig inferior colliculus to test a narrower
+        question: can you read back <em>which word</em> an animal heard from the neural response alone?</p>
+    </section>
+
+    <section class="cell" data-cell="details" id="c-details">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p = aria.projects.loc[<span class="str">"cochlear"</span>]
+p.<span class="fn">info</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="info">
+          <div class="cls">&lt;class 'aria.Project'&gt;</div>
+          <dl class="kv">
+            <dt>role</dt><dd>First author, with Dr. Claus-Peter Richter</dd>
+            <dt>timeline</dt><dd>May 2023 &ndash; Dec 2024</dd>
+            <dt>stack</dt><dd>Python, scikit-learn, SVMs, signal processing</dd>
+            <dt>status</dt><dd>Paper drafted &middot; ongoing data collection</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell prose" id="c-the-problem">
+      <div class="cell-label">markdown</div>
+      <h2>The problem</h2>
+        <p>
+          Cochlear implants have transformed hearing for people with severe hearing loss, but the gap between
+          implant users and normal hearing is still wide, and it has not closed the way the hardware has improved.
+          A 2021 study out of Northwestern Feinberg put the difficulty starkly: participants with hearing
+          disorders, given a limited set of words to choose from, picked the same word <strong>53% of the
+          time</strong> regardless of what they had actually heard.
+        </p>
+        <p>
+          That points at the coding strategy, the rule that turns incoming sound into a pattern of
+          electrical stimulation, rather than at the electrodes. But coding strategies are hard to
+          evaluate, because the usual measure is what a human subject reports hearing. I wanted a measure that
+          reads the neural response directly.
+        </p>
+    </section>
+    <section class="cell prose" id="c-what-i-built">
+      <div class="cell-label">markdown</div>
+      <h2>What I built</h2>
+        <p>
+          A classification pipeline that takes raw multi-channel recordings from the inferior colliculus of four
+          guinea pigs and predicts which of 53 spoken words produced them. The interesting decisions were mostly
+          in the feature construction: how you turn a spike train into something a classifier can use
+          without throwing away the timing information that carries the word.
+        </p>
+        <ul>
+          <li>Built the feature extraction: each neuron's recording holds the response to one word repeated ten times, so I split it into ten instances, divided each instance into <em>t</em> time-intervals, and counted peaks above a threshold in each interval, then concatenated those counts across all 20 neurons into a single vector.</li>
+          <li>Chose an SVM over a deep model deliberately. The feature space is high-dimensional and the dataset is small; a neural network would have memorized it. With more recordings, that trade-off flips.</li>
+          <li>Swept the parameters that define the representation rather than just the ones that define the model: bin counts of 100 and 200 time-intervals, frequency counts of 2, 4 and 10, thresholds of 0.05 and 0.06, RBF kernel, 10% held out for testing.</li>
+          <li>Evaluated every pair of the 53 words separately and laid the results out as a confusion matrix, scoring with accuracy, precision, recall and F1 rather than accuracy alone.</li>
+        </ul>
+    </section>
+    <section class="cell" data-cell="fig1" id="c-fig1">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">show</span>(<span class="str">"cochlear-2-spectrogram-spikes.png"</span>, <span class="str">"cochlear-1-feature-vector.png"</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="fig">
+        <figure class="shots shots--fig">
+        <div class="shots-pair">
+          <a class="shots-frame" href="images/cochlear-2-spectrogram-spikes.png" target="_blank" rel="noopener">
+            <div class="shots-scroll">
+              <img src="images/cochlear-2-spectrogram-spikes.png" width="1132" height="890" loading="lazy"
+                   alt="Spectrogram of the spoken word &ldquo;wheel&rdquo;, log frequency from 2.6 to 3.8 Hz against one second of time, with detected neural spikes overlaid as black dots clustering between 0.25 and 0.65 seconds." />
+            </div>
+          </a>
+          <a class="shots-frame" href="images/cochlear-1-feature-vector.png" target="_blank" rel="noopener">
+            <div class="shots-scroll">
+              <img src="images/cochlear-1-feature-vector.png" width="1156" height="850" loading="lazy"
+                   alt="Feature vector for one instance of the word &ldquo;duck&rdquo;: roughly 900 features along the x-axis, each holding a peak count between 0 and 5." />
+            </div>
+          </a>
+        </div>
+        <figcaption>
+          [Caption &mdash; left: the spike response to <em>wheel</em> laid over its spectrogram. Right: one
+          instance of <em>duck</em> after feature extraction, the vector the SVM actually sees.]
+        </figcaption>
+      </figure>
+        </div>
+      </div>
+    </section>
+    <section class="cell prose" id="c-what-happened">
+      <div class="cell-label">markdown</div>
+      <h2>What happened</h2>
+        <p>
+          The result that surprised me runs against the assumption in the field. Prior work suggests that
+          increasing the number of frequency channels improves implant performance, but in our models,
+          <strong>reducing</strong> the number of frequencies made word prediction more accurate. Distinguishing
+          <em>duck</em> from <em>bomb</em> sat at 50% with ten frequencies and reached <strong>100%</strong> with
+          two, holding the threshold and bin count fixed. Coarsening the time bins hurt in the expected
+          direction: <em>goose</em> versus <em>june</em> fell from 50% to 25% when I halved the number of
+          intervals.
+        </p>
+        <p>
+          Our work suggests that a leaner feature set may give the classifier less noise to fit, which could
+          translate to how many channels a coding strategy needs to be effective.
+        </p>
+    </section>
+
+    <section class="cell" data-cell="next" id="c-next">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.projects.<span class="fn">next</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="contact">
+          <div class="contact-line"><a href="ieee-paper.html">Bluetooth Social Networking <em class="accent">→</em></a></div>
+          <div class="links">
+            <a class="pill primary" href="index.html#c-contact">get in touch ↗</a>
+            <a class="pill" href="index.html#c-proj">all projects</a>
+            <a class="pill" href="blog/blog.html">case studies</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

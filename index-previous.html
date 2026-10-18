@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aria Barve</title>
+  <meta name="description" content="Aria Barve — Yale student, builder, founder of 21Meals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:       #04040b;
+      --card:     #0d0d18;
+      --border:   rgba(167,139,250,0.1);
+      --rule:     rgba(255,255,255,0.06);
+      --text:     #eae5dd;
+      --muted:    #5a5a70;
+      --accent:   #a78bfa;
+      --gold:     #f0c060;
+      --grad:     linear-gradient(130deg, #a78bfa 0%, #f0c060 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+      padding: 1.25rem;
+      padding-top: calc(58px + 1.25rem);
+      min-height: 100vh;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9997;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+
+    /* ── CURSOR ─────────────────────────────────── */
+    #cur-dot {
+      position: fixed; z-index: 9999;
+      width: 7px; height: 7px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .22s, height .22s, background .22s;
+      will-change: left, top;
+    }
+    #cur-ring {
+      position: fixed; z-index: 9998;
+      width: 30px; height: 30px;
+      border: 1.5px solid rgba(167,139,250,.38); border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .3s cubic-bezier(.23,1,.32,1),
+                  height .3s cubic-bezier(.23,1,.32,1),
+                  border-color .3s;
+      will-change: left, top;
+    }
+    body.ch #cur-dot  { width: 11px; height: 11px; background: var(--gold); }
+    body.ch #cur-ring { width: 46px; height: 46px; border-color: rgba(240,192,96,.22); }
+    body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.6); }
+    @media (hover:none) { #cur-dot, #cur-ring { display:none; } body { cursor:auto; } }
+
+    /* ── NAV — fixed, full-width, outside card ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem;
+      height: 58px;
+      background: rgba(4,4,11,.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem; color: var(--text); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: .77rem; letter-spacing: .06em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); }
+
+    /* ── PAGE CARD ──────────────────────────────── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── HERO ───────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 82vh;
+      display: flex; align-items: center;
+      padding: 5rem 3rem 4rem;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-size: .73rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 9vw, 6rem);
+      line-height: .95; font-weight: 400; font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+    .hero-name .line1 { display: block; color: var(--text); }
+    .hero-name .line2 {
+      display: block;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.8; max-width: 380px;
+      margin-bottom: 2.25rem;
+    }
+    .hero-btns { display: flex; gap: .85rem; flex-wrap: wrap; }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 3rem;
+      display: flex; align-items: center; gap: .65rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); z-index: 1;
+      animation: sf 3s ease-in-out infinite;
+    }
+    .scroll-hint-bar { width: 36px; height: 1px; background: var(--muted); opacity: .5; }
+    @keyframes sf { 0%,100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .65rem 1.3rem; border-radius: 8px;
+      font-size: .86rem; font-weight: 500; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn:hover { opacity: .82; transform: translateY(-1px); }
+    .btn-fill  { background: var(--accent); color: #0c0a1a; }
+    .btn-ghost { border: 1px solid var(--rule); color: var(--text); }
+    .btn-ghost:hover { border-color: rgba(167,139,250,.3); }
+    .arr { transition: transform .18s; }
+    .btn:hover .arr { transform: translateX(3px); }
+
+    /* ── CONTENT AREA ───────────────────────────── */
+    .content {
+      padding: 0 3rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── SECTIONS ───────────────────────────────── */
+    .section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .sec-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem; font-weight: 400; font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── ABOUT ──────────────────────────────────── */
+    .about-text {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.9;
+    }
+    .about-text + .about-text { margin-top: .9rem; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+
+    .stats-row {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      margin-top: 2.5rem; padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; line-height: 1; font-style: italic;
+      color: var(--text); margin-bottom: .2rem;
+    }
+    .stat-lbl { font-size: .76rem; color: var(--muted); }
+
+    /* ── PROJECTS ───────────────────────────────── */
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem; align-items: start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+      transition: border-color .2s;
+    }
+    .project-item:last-child { border-bottom: none; }
+    .project-item:hover { border-color: rgba(167,139,250,.22); }
+    .project-item:hover .proj-name { color: var(--accent); }
+
+    .proj-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; font-weight: 400;
+      margin-bottom: .3rem;
+      transition: color .2s;
+    }
+    .proj-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+    .proj-year { font-size: .73rem; color: var(--muted); white-space: nowrap; padding-top: .25rem; }
+
+    /* ── EXPERIENCE ─────────────────────────────── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-date { font-size: .73rem; color: var(--muted); padding-top: .15rem; line-height: 1.6; }
+    .exp-co   { font-weight: 500; font-size: .93rem; margin-bottom: .1rem; }
+    .exp-role { font-size: .8rem; color: var(--accent); margin-bottom: .45rem; }
+    .exp-desc { font-size: .84rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── CONNECT ────────────────────────────────── */
+    .connect-section { padding: 3.5rem 0 0; }
+    .connect-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 400; font-style: italic;
+      line-height: 1.0; margin-bottom: 1rem;
+    }
+    .connect-section p {
+      font-size: .95rem; color: var(--muted);
+      margin-bottom: 1.75rem; max-width: 320px; line-height: 1.8;
+    }
+    .connect-btns { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: .5rem;
+    }
+    footer p, footer a { font-size: .72rem; color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── REVEAL ─────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 580px) {
+      body { padding: 0; padding-top: 58px; }
+      .page { border-radius: 0; border-left: none; border-right: none; }
+      .hero { padding: 3.5rem 1.5rem 3rem; }
+      .scroll-hint { left: 1.5rem; }
+      .content { padding: 0 1.5rem; }
+      footer { padding: 1.25rem 1.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: .2rem; }
+      .exp-date { color: var(--accent); }
+      .stats-row { gap: 1.75rem; }
+      nav { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <!-- NAV — sits outside the card -->
+  <nav>
+    <a href="#" class="nav-logo">Aria Barve</a>
+    <ul class="nav-links">
+      <li><a href="#about"      data-s="about">About</a></li>
+      <li><a href="#work"       data-s="work">Work</a></li>
+      <li><a href="#experience" data-s="experience">Experience</a></li>
+      <li><a href="#connect"    data-s="connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- THE CARD -->
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-inner">
+        <p class="hero-label">Yale &rsquo;29 &middot; New Haven, CT</p>
+        <h1 class="hero-name">
+          <span class="line1" id="fly-hi"   style="opacity:0;transform:translateY(14px)">Hi, I&rsquo;m</span>
+          <span class="line2" id="fly-name" style="opacity:0">Aria.</span>
+        </h1>
+        <p class="hero-sub">
+          I build things at the intersection of AI and the real world. Currently studying Statistics &amp; Data Science at Yale.
+        </p>
+        <div class="hero-btns">
+          <a href="mailto:aria.barve@yale.edu" class="btn btn-fill mag">Say hello <span class="arr">&rarr;</span></a>
+          <a href="https://linkedin.com/in/ariabarve" target="_blank" rel="noopener" class="btn btn-ghost mag">LinkedIn</a>
+        </div>
+      </div>
+      <div class="scroll-hint">
+        <div class="scroll-hint-bar"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ABOUT -->
+      <div class="section" id="about">
+        <p class="sec-title reveal">About</p>
+        <p class="about-text reveal">
+          I&rsquo;m a <strong>Statistics &amp; Data Science</strong> student at Yale, double-majoring in Economics. I like building things — software, companies, research — and I care most about work that has a real effect on people.
+        </p>
+        <p class="about-text reveal" style="transition-delay:.07s">
+          I founded <strong>21Meals</strong> at 16, a recipe app that reached users in 20+ countries and 6 continents within three months of launching. I&rsquo;ve done AI research at Northwestern&rsquo;s medical school, co-authored an IEEE paper, and most recently interned at Instawork building automation tools. Outside of all that, I figure skate and am always reading something on economics or AI.
+        </p>
+
+        <div class="stats-row">
+          <div class="reveal">
+            <div class="stat-num"><span class="count" data-end="60" data-suffix="K+">0</span></div>
+            <div class="stat-lbl">21Meals site visits</div>
+          </div>
+          <div class="reveal" style="transition-delay:.07s">
+            <div class="stat-num"><span class="count" data-end="6" data-suffix="">0</span></div>
+            <div class="stat-lbl">continents reached</div>
+          </div>
+          <div class="reveal" style="transition-delay:.14s">
+            <div class="stat-num"><span class="count" data-end="300" data-suffix="+">0</span></div>
+            <div class="stat-lbl">signups from one AI campaign</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORK -->
+      <div class="section" id="work">
+        <p class="sec-title reveal">Projects</p>
+
+        <div class="project-item reveal">
+          <div>
+            <p class="proj-name">21Meals</p>
+            <p class="proj-desc">Recipe app that takes what you have in the kitchen and suggests what to make. Built and launched solo, now Yale-backed and growing toward a full consumer product.</p>
+          </div>
+          <span class="proj-year">2024&thinsp;&ndash;&thinsp;now</span>
+        </div>
+
+        <div class="project-item reveal" style="transition-delay:.06s">
+          <div>
+            <p class="proj-name">AI Ad Campaign Tool</p>
+            <p class="proj-desc">Built at Instawork — takes a target market and budget and handles everything from ad creative to campaign launch. First run drove 300+ signups.</p>
+          </div>
+          <span class="proj-year">2026</span>
+        </div>
+
+        <div class="project-item reveal" style="transition-delay:.12s">
+          <div>
+            <p class="proj-name">Cochlear Implant Research</p>
+            <p class="proj-desc">At Northwestern Feinberg, built models to classify neural responses and improve cochlear implant software. Got to 70%+ accuracy matching brain signals to spoken words.</p>
+          </div>
+          <span class="proj-year">2023&thinsp;&ndash;&thinsp;24</span>
+        </div>
+
+        <div class="project-item reveal" style="transition-delay:.18s">
+          <div>
+            <p class="proj-name">IEEE COMPSAC 2025</p>
+            <p class="proj-desc">Co-authored a paper on Bluetooth-based social networking and presented to 60+ delegates from the National University of Singapore.</p>
+          </div>
+          <span class="proj-year">2024</span>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="section" id="experience">
+        <p class="sec-title reveal">Experience</p>
+
+        <div class="exp-item reveal">
+          <div class="exp-date">Jun – Aug 2026</div>
+          <div>
+            <p class="exp-co">Instawork</p>
+            <p class="exp-role">Product Operations Intern</p>
+            <p class="exp-desc">Built AI automation and SQL dashboards to fix a 30–40% data gap and inform paid acquisition. Designed outreach tools that hit a 50% fill rate.</p>
+          </div>
+        </div>
+
+        <div class="exp-item reveal" style="transition-delay:.05s">
+          <div class="exp-date">Apr 2024 – now</div>
+          <div>
+            <p class="exp-co">21Meals</p>
+            <p class="exp-role">Founder</p>
+            <p class="exp-desc">Took it from idea to product to 60K+ visits in three months. Now building the next version with Yale backing.</p>
+          </div>
+        </div>
+
+        <div class="exp-item reveal" style="transition-delay:.1s">
+          <div class="exp-date">May 2023 – Dec 2024</div>
+          <div>
+            <p class="exp-co">Northwestern Feinberg School of Medicine</p>
+            <p class="exp-role">AI Research Intern</p>
+            <p class="exp-desc">Built ML models to analyze neural signals and improve cochlear implant software. Reached 70%+ accuracy on word matching.</p>
+          </div>
+        </div>
+
+        <div class="exp-item reveal" style="transition-delay:.15s">
+          <div class="exp-date">Jun – Aug 2024</div>
+          <div>
+            <p class="exp-co">Discovery Partners Institute</p>
+            <p class="exp-role">Research Intern</p>
+            <p class="exp-desc">Co-authored a paper accepted to IEEE COMPSAC 2025, presented to international delegates from Singapore.</p>
+          </div>
+        </div>
+
+        <div class="exp-item reveal" style="transition-delay:.2s">
+          <div class="exp-date">Jun – Aug 2022</div>
+          <div>
+            <p class="exp-co">FHL Vive Center, UC Berkeley</p>
+            <p class="exp-role">Software Engineer</p>
+            <p class="exp-desc">Worked with the ROAR autonomous racing team and helped build car racing kits for California schools.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECT -->
+      <div class="connect-section section" id="connect">
+        <h2 class="reveal">
+          Let&rsquo;s talk.<br>
+          <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Build something.</span>
+        </h2>
+        <p class="reveal">I&rsquo;m always open to conversations, collaborations, and new ideas.</p>
+        <div class="connect-btns">
+          <a href="mailto:aria.barve@yale.edu" class="btn btn-fill mag reveal">aria.barve@yale.edu <span class="arr">&rarr;</span></a>
+          <a href="https://linkedin.com/in/ariabarve" target="_blank" rel="noopener" class="btn btn-ghost mag reveal" style="transition-delay:.07s">LinkedIn</a>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <footer>
+      <p>&copy; 2026 Aria Barve</p>
+      <p><a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></p>
+    </footer>
+
+  </div><!-- /page -->
+
+  <script>
+  (() => {
+
+    /* ── CURSOR ─────────────────────────────── */
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx = -300, my = -300, rx = -300, ry = -300;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.addEventListener('mousedown', () => document.body.classList.add('cc'));
+    document.addEventListener('mouseup',   () => document.body.classList.remove('cc'));
+
+    document.querySelectorAll('a, .project-item').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+    });
+
+    (function loop() {
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+
+    /* ── CANVAS ─────────────────────────────── */
+    const canvas = document.getElementById('hero-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, pts = [];
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+
+    class Pt {
+      constructor() {
+        this.x  = Math.random() * W;
+        this.y  = Math.random() * H;
+        this.vx = (Math.random() - .5) * .32;
+        this.vy = (Math.random() - .5) * .32;
+        this.r  = Math.random() * .9 + .3;
+      }
+      tick() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > W) this.vx *= -1;
+        if (this.y < 0 || this.y > H) this.vy *= -1;
+      }
+    }
+
+    function initCanvas() { resize(); pts = Array.from({length: 40}, () => new Pt()); }
+
+    (function drawCanvas() {
+      ctx.clearRect(0, 0, W, H);
+      pts.forEach(p => {
+        p.tick();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(167,139,250,.22)';
+        ctx.fill();
+      });
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < 110) {
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(167,139,250,${.08*(1-d/110)})`;
+            ctx.lineWidth = .5;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(drawCanvas);
+    })();
+
+    window.addEventListener('resize', resize);
+    initCanvas();
+
+
+    /* ── FLOATING NAME ──────────────────────── */
+    function floatName() {
+      const hiEl   = document.getElementById('fly-hi');
+      const nameEl = document.getElementById('fly-name');
+      const TEXT   = 'Aria.';
+
+      // "Hi, I'm" — fade up
+      setTimeout(() => {
+        hiEl.style.transition = 'opacity .7s ease, transform .8s cubic-bezier(.16,1,.3,1)';
+        hiEl.style.opacity    = '1';
+        hiEl.style.transform  = 'translateY(0)';
+      }, 200);
+
+      // Split into inline-block spans (required for per-letter transforms).
+      // Clear the parent's gradient — we'll re-apply it per-span below
+      // so the inherited -webkit-text-fill-color:transparent doesn't hide letters.
+      nameEl.innerHTML = TEXT.split('').map(ch =>
+        `<span class="fl" style="display:inline-block;will-change:transform;opacity:0">${ch}</span>`
+      ).join('');
+      nameEl.style.background         = 'none';
+      nameEl.style.webkitTextFillColor = 'initial';
+      nameEl.style.webkitBackgroundClip = 'unset';
+      nameEl.style.backgroundClip      = 'unset';
+      nameEl.style.color               = 'transparent';
+      nameEl.style.opacity             = '1';
+
+      const ltrs = [...nameEl.querySelectorAll('.fl')];
+
+      // After layout, apply the gradient to each span using the
+      // background-size/position trick so it reads as one continuous gradient.
+      requestAnimationFrame(() => {
+        const first = ltrs[0].getBoundingClientRect();
+        const last  = ltrs[ltrs.length - 1].getBoundingClientRect();
+        const totalW = last.right - first.left;
+
+        ltrs.forEach(el => {
+          const r      = el.getBoundingClientRect();
+          const offset = r.left - first.left;
+          el.style.background          = 'linear-gradient(130deg, #a78bfa 0%, #f0c060 100%)';
+          el.style.backgroundSize      = `${totalW}px 100%`;
+          el.style.backgroundPosition  = `-${offset}px 0`;
+          el.style.webkitBackgroundClip = 'text';
+          el.style.webkitTextFillColor  = 'transparent';
+          el.style.backgroundClip       = 'text';
+        });
+
+        // Oscillation params — each letter drifts independently
+        const params = ltrs.map(() => ({
+          fx: 0.28 + Math.random() * 0.22,
+          fy: 0.22 + Math.random() * 0.22,
+          ax: 3.5  + Math.random() * 4.0,
+          ay: 2.5  + Math.random() * 4.0,
+          px: Math.random() * Math.PI * 2,
+          py: Math.random() * Math.PI * 2,
+          rf: 0.14 + Math.random() * 0.14,
+          rp: Math.random() * Math.PI * 2,
+          ra: 0.7  + Math.random() * 0.9,
+        }));
+
+        let t0 = null;
+        const FADE_START  = 450;
+        const FADE_STEP   = 110;
+        const FADE_DUR    = 700;
+        const DRIFT_HOLD  = 2200; // ms of full drifting after letters appear
+        const DRIFT_DECAY = 2000; // ms to ease back to rest
+
+        let raf;
+        function tick(ts) {
+          if (!t0) t0 = ts;
+          const elapsed = ts - t0;
+          const s = elapsed / 1000;
+
+          // Amplitude envelope: 1 while drifting, then eases to 0
+          const decayElapsed = elapsed - DRIFT_HOLD;
+          const rawDecay = Math.min(Math.max(decayElapsed / DRIFT_DECAY, 0), 1);
+          // Ease-out cubic so it settles gently rather than snapping
+          const amp = 1 - (rawDecay * rawDecay * (3 - 2 * rawDecay));
+
+          ltrs.forEach((el, i) => {
+            const start = FADE_START + i * FADE_STEP;
+            el.style.opacity = Math.min(Math.max((elapsed - start) / FADE_DUR, 0), 1);
+
+            const p = params[i];
+            const x = Math.sin(s * p.fx * Math.PI * 2 + p.px) * p.ax * amp;
+            const y = Math.cos(s * p.fy * Math.PI * 2 + p.py) * p.ay * amp;
+            const r = Math.sin(s * p.rf * Math.PI * 2 + p.rp) * p.ra * amp;
+            el.style.transform = `translate(${x}px,${y}px) rotate(${r}deg)`;
+          });
+
+          if (amp > 0) {
+            raf = requestAnimationFrame(tick);
+          }
+        }
+
+        raf = requestAnimationFrame(tick);
+      });
+    }
+
+    window.addEventListener('load', floatName);
+
+
+    /* ── MAGNETIC BUTTONS ───────────────────── */
+    document.querySelectorAll('.mag').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r  = btn.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width  / 2) * .28;
+        const dy = (e.clientY - r.top  - r.height / 2) * .28;
+        btn.style.transition = 'transform .08s ease';
+        btn.style.transform  = `translate(${dx}px,${dy}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform .5s cubic-bezier(.23,1,.32,1)';
+        btn.style.transform  = 'translate(0,0)';
+      });
+    });
+
+
+    /* ── COUNTERS ───────────────────────────── */
+    let counted = false;
+    const counters = document.querySelectorAll('.count');
+
+    function runCounters() {
+      if (counted) return; counted = true;
+      counters.forEach(el => {
+        const end    = parseInt(el.dataset.end, 10);
+        const suffix = el.dataset.suffix || '';
+        const t0     = Date.now();
+        (function tick() {
+          const p = Math.min((Date.now() - t0) / 1500, 1);
+          el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * end) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        })();
+      });
+    }
+
+    const cObs = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) runCounters();
+    }, { threshold: .3 });
+    counters.forEach(el => cObs.observe(el));
+
+
+    /* ── SCROLL REVEAL ──────────────────────── */
+    const rObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: .08 });
+    document.querySelectorAll('.reveal').forEach(el => rObs.observe(el));
+
+
+    /* ── ACTIVE NAV ─────────────────────────── */
+    const secs  = document.querySelectorAll('#about, #work, #experience, #connect');
+    const links = document.querySelectorAll('.nav-links a[data-s]');
+    const nObs  = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          const l = document.querySelector(`.nav-links a[data-s="${e.target.id}"]`);
+          if (l) l.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    secs.forEach(s => nObs.observe(s));
+
+  })();
+  </script>
+</body>
+</html>

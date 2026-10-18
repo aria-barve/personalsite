@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bluetooth Social Networking &middot; Aria Barve</title>
+<meta name="description" content="Using the Bluetooth radio already in attendees' phones to detect real conversations at conferences and turn them into professional connections. IEEE COMPSAC 2025.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="index.html" aria-label="Home">ab</a>
+      <span>projects/ieee_paper.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="index.html">← index</a>
+      <a class="tb" href="index.html#c-proj" aria-current="page">work</a>
+      <a class="tb" href="blog/blog.html">writing</a>
+      <a class="tb" href="index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ overview</a>
+      <a href="#c-details">§ details</a>
+      <a href="#c-the-problem">§ the problem</a>
+      <a href="#c-what-i-built">§ what i built</a>
+      <a href="#c-what-happened">§ what happened</a>
+      <a href="#c-next">§ next</a>
+    </nav>
+    <div class="meta">
+      <div class="eyebrow">projects</div>
+      <nav class="outline" aria-label="Projects">
+      <a href="ad-engine.html">Outreach Engine</a>
+      <a href="21meals.html">21Meals</a>
+      <a href="ieee-paper.html" aria-current="page">Bluetooth Networking</a>
+      <a href="cochlear-research.html">Cochlear Implant ML</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+    <section id="c-top" class="cell md">
+      <div class="crumb"><span class="cell-label">markdown</span><a href="index.html#c-proj">← back to work</a></div>
+      <p class="kicker">Publication &middot; IEEE COMPSAC 2025</p>
+      <h1 class="title title--sm">Bluetooth Social Networking</h1>
+      <p class="lede lede--sm">Networking at a conference depends on three fragile things: bumping into the right person, remembering
+        it afterwards, and actually sending the request. At Discovery Partners Institute I worked on an Android
+        app that uses the Bluetooth radio already in everyone's pocket to notice when two attendees are
+        genuinely in conversation, and log it as a connection worth making.</p>
+    </section>
+
+    <section class="cell" data-cell="details" id="c-details">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p = aria.projects.loc[<span class="str">"ieee_paper"</span>]
+p.<span class="fn">info</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="info">
+          <div class="cls">&lt;class 'aria.Project'&gt;</div>
+          <dl class="kv">
+            <dt>role</dt><dd>Research intern &middot; co-author</dd>
+            <dt>timeline</dt><dd>Jun 2024 &ndash; Aug 2024</dd>
+            <dt>stack</dt><dd>Android, Bluetooth RSSI, Navigine indoor positioning, BLE beacons</dd>
+            <dt>status</dt><dd>Accepted &middot; IEEE COMPSAC 2025</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell" data-cell="metrics" id="c-metrics">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">metrics</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="metrics">
+          <div class="metric"><b>60+</b><span>NUS delegates the work was presented to</span></div>
+          <div class="metric"><b>5 m</b><span>proximity threshold for a logged encounter</span></div>
+          <div class="metric"><b>3 min</b><span>dwell time before proximity counts as a meeting</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell prose" id="c-the-problem">
+      <div class="cell-label">markdown</div>
+      <h2>The problem</h2>
+        <p>
+          Professional networking is essential and almost entirely unassisted. It runs on chance encounters in
+          hallways and pre-scheduled meetings, on remembering who you met, and on remembering to connect with
+          them afterwards. Any one of those three failing means the connection never happens, and at a
+          conference with a thousand attendees, all three fail constantly.
+        </p>
+        <p>
+          Contact tracing research has solved a version of this, but usually by deploying infrastructure: BLE
+          beacons handed out to participants, or RFID tags issued at the door. That works and it does not scale
+          to an ordinary event. The question we took on was whether the phones people already carry are enough.
+        </p>
+    </section>
+    <section class="cell prose" id="c-what-i-built">
+      <div class="cell-label">markdown</div>
+      <h2>What I built</h2>
+        <p>
+          An Android app in which each phone broadcasts a Bluetooth UUID and scans for others, recording the
+          Received Signal Strength Indicator to infer how close the other person is. Two users within
+          <strong>5 metres for at least 3 minutes</strong> get logged as an encounter, a proxy for
+          "these people actually talked." Around that sits an indoor positioning layer and a privacy protocol.
+        </p>
+        <ul>
+          <li>Wrote and ran the survey instrument that shaped the feature set: how often people use LinkedIn, whether they email the contacts they make, what their intention is when they attend an event, and how long after meeting someone they actually send the request.</li>
+          <li>Built indoor positioning on Navigine, which locates users against a floor plan, and cross-checked its output against stationary Bluetooth beacons to cut down false positives and negatives.</li>
+          <li>Implemented the encounter logic on top of raw UUID scans and RSSI readings, then a privacy protocol that regenerates each user's UUID on a rotating basis so a persistent identifier never leaves the device.</li>
+          <li>Worked through the centralized-versus-decentralized architecture question deliberately rather than defaulting, since contact tracing apps live or die on whether users trust where the data sits.</li>
+        </ul>
+    </section>
+    <section class="cell" data-cell="fig1" id="c-fig1">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">show</span>(<span class="str">"ieee-1-system-architecture.png"</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="fig">
+        <figure class="shots shots--fig shots--tall">
+        <a class="shots-frame" href="images/ieee-1-system-architecture.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/ieee-1-system-architecture.png" width="1698" height="1184" loading="lazy"
+                 alt="System architecture diagram. A User block holding Profile and History feeds an Offline block (Encounters, Positioning System), a Conference System block (Program, Session, Items) and an Online block (Notification, Message); all three feed a Recommendation block holding Proximity and Homophily." />
+          </div>
+        </a>
+        <figcaption>
+          [Caption &mdash; how the pieces fit together: the offline signal, the online signal and the
+          conference program all feed the recommendation layer.]
+        </figcaption>
+      </figure>
+        </div>
+      </div>
+    </section>
+    <section class="cell" data-cell="fig2" id="c-fig2">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">show</span>(<span class="str">"ieee-2-user-flow.png"</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="fig">
+        <figure class="shots shots--fig shots--wide">
+        <a class="shots-frame" href="images/ieee-2-user-flow.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/ieee-2-user-flow.png" width="1786" height="784" loading="lazy"
+                 alt="Four-screen user flow. First, an alert asks whether to join the network for the keynote session that just ended. Second, the joined keynote network lists the other attendees. Third, a connect screen for Dianna Perkins offers Facebook, LinkedIn, profile and business card. Fourth, a &ldquo;why connect with Dianna&rdquo; screen lists the shared breakout sessions, the person they both met, and the forum they both favorited." />
+          </div>
+        </a>
+        <figcaption>
+          [Caption &mdash; the flow from the user's side, from the post-session prompt through to the reasons
+          the recommendation is surfaced.]
+        </figcaption>
+      </figure>
+        </div>
+      </div>
+    </section>
+    <section class="cell prose" id="c-what-happened">
+      <div class="cell-label">markdown</div>
+      <h2>What happened</h2>
+        <p>
+          We tested in a controlled setting, and the failures were more informative than the success. In the
+          first case, two people were in conversation and a third sat eight feet away, uninvolved; we expected
+          one encounter between the pair and none involving the third. What we got was the inverse: two
+          encounters involving the bystander, and asymmetric detection between the pair, where one phone saw the
+          other but not the reverse. Traced back, the causes were mundane and exactly the point: one phone had
+          its scanning feature off, and the third person's phone was inside a bag, attenuating the signal. The
+          second case, with all three in conversation and all phones on the table, logged every pairing
+          correctly and for the right durations.
+        </p>
+        <p>
+          So RSSI alone is not enough. Device placement, phone model and per-user settings move the signal more
+          than distance does, which matches what the literature reports about proximity accuracy across contact
+          tracing apps. The work was presented to <strong>60+ delegates from the National University of
+          Singapore</strong> and accepted to the <strong>IEEE COMPSAC 2025 Symposium on Human &amp; Social
+          Computing</strong>. What follows is adding audio to separate a real conversation from standing near
+          someone, using deep learning to tell whether a user is sitting in a speaker panel or actually talking,
+          and pulling in the LinkedIn API, with permission, to know which connections a user
+          already has.
+        </p>
+    </section>
+
+    <section class="cell" data-cell="next" id="c-next">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.projects.<span class="fn">next</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="contact">
+          <div class="contact-line"><a href="21meals.html">21Meals <em class="accent">→</em></a></div>
+          <div class="links">
+            <a class="pill primary" href="index.html#c-contact">get in touch ↗</a>
+            <a class="pill" href="index.html#c-proj">all projects</a>
+            <a class="pill" href="blog/blog.html">case studies</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M578Y6L1G5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M578Y6L1G5');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>21Meals &middot; Aria Barve</title>
+<meta name="description" content="21Meals turns the ingredients you already have into a week of meals and the grocery list to match. Built solo in React Native, 60,000+ visits across 20+ countries.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23141417%22/><text x=%2250%22 y=%2264%22 font-family=%22Menlo,monospace%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23ffffff%22>ab</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="file">
+      <a class="logo" href="index.html" aria-label="Home">ab</a>
+      <span>projects/21meals.ipynb</span>
+      <span class="saved">· saved</span>
+    </div>
+    <nav class="actions" aria-label="Site">
+      <a class="tb" href="index.html">← index</a>
+      <a class="tb" href="index.html#c-proj" aria-current="page">work</a>
+      <a class="tb" href="blog/blog.html">writing</a>
+      <a class="tb" href="index.html#c-contact">contact</a>
+      <span class="kernel" id="kernel" aria-live="polite"><span class="dot"></span>aria 2026 · <span id="kernel-state">idle</span></span>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="eyebrow">outline</div>
+    <nav class="outline" aria-label="Sections">
+      <a href="#c-top">§ overview</a>
+      <a href="#c-details">§ details</a>
+      <a href="#c-the-problem">§ the problem</a>
+      <a href="#c-what-i-built">§ what i built</a>
+      <a href="#c-what-happened">§ what happened</a>
+      <a href="#c-next">§ next</a>
+    </nav>
+    <div class="meta">
+      <div class="eyebrow">projects</div>
+      <nav class="outline" aria-label="Projects">
+      <a href="ad-engine.html">Outreach Engine</a>
+      <a href="21meals.html" aria-current="page">21Meals</a>
+      <a href="ieee-paper.html">Bluetooth Networking</a>
+      <a href="cochlear-research.html">Cochlear Implant ML</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="notebook">
+
+    <section id="c-top" class="cell md">
+      <div class="crumb"><span class="cell-label">markdown</span><a href="index.html#c-proj">← back to work</a></div>
+      <p class="kicker">Founder &middot; 2024 &ndash; now</p>
+      <h1 class="title title--sm">21Meals</h1>
+      <p class="lede lede--sm">You have a fridge full of ingredients and no idea what to make with them. 21Meals takes what you
+        actually have, plus what you actually like, and gives you a week of meals and the grocery list to
+        go with it, so the deciding is done before you're standing in the kitchen at 7pm.</p>
+    </section>
+
+    <section class="cell" data-cell="details" id="c-details">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p = aria.projects.loc[<span class="str">"21meals"</span>]
+p.<span class="fn">info</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="info">
+          <div class="cls">&lt;class 'aria.Project'&gt;</div>
+          <dl class="kv">
+            <dt>role</dt><dd>Founder, solo build</dd>
+            <dt>timeline</dt><dd>Apr 2024 &ndash; present</dd>
+            <dt>stack</dt><dd>React Native (Expo), Python, SQL, generative AI APIs</dd>
+            <dt>status</dt><dd>In development / Published MVP</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell" data-cell="metrics" id="c-metrics">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">metrics</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="metrics">
+          <div class="metric"><b>60,000+</b><span>site hits</span></div>
+          <div class="metric"><b>30+</b><span>countries reached</span></div>
+          <div class="metric"><b>600</b><span>users</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell prose" id="c-the-problem">
+      <div class="cell-label">markdown</div>
+      <h2>The problem</h2>
+        <p>
+          As an avid cook, I was tired of looking in the fridge and not knowing what to make. I wanted to find recipes that were quick and easy to make, and that I would actually enjoy eating without having to spend time researching and planning.
+        </p>
+    </section>
+    <section class="cell prose" id="c-what-i-built">
+      <div class="cell-label">markdown</div>
+      <h2>What I built</h2>
+        <p>
+          I built an app that allows you to type in ingredients, as well as other preferences you have, and  generate a list of recipes that you can make with those ingredients. This is evolving into a meal planning app that will allow you to plan your meals for the week, and generate a shopping list of the ingredients you need to buy.
+        </p>
+        <ul>
+          <li>Built a cross-platform meal-planning app in React Native (Expo SDK 57) with Expo Router, using file-based routing across 8 screens (auth, onboarding preferences, daily plan, weekly editor, recipe detail) and a React Context provider for cross-screen user session state, replacing brittle URL-param passing.</li> 
+          <li>Integrated a REST backend for AI-generated weekly meal plans, wiring 11 endpoints (auth, preference persistence, plan generation, per-day meal fetch, recipe lookup, grocery-list and favorites sync) with optimistic local state updates, loading/error handling, and a meal-swap flow that reconciles the edited plan back to the server.</li>
+          <li>Designed and implemented a reusable design system: centralized color/shadow/typography tokens plus composable primitives (gradient canvas with layered blur "blooms", elevated cream cards, focus-ring inputs, spring-scale pressables, staggered fade-and-rise entrance animations), so every route renders from one visual language instead of per-screen ad-hoc styles.</li>
+        </ul>
+    </section>
+    <section class="cell" data-cell="fig1" id="c-fig1">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">p.<span class="fn">show</span>(<span class="str">"21meals-screens.png"</span>)</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="fig">
+        <figure class="shots">
+        <a class="shots-frame" href="images/21meals-screens.png" target="_blank" rel="noopener">
+          <div class="shots-scroll">
+            <img src="images/21meals-screens.png" width="1806" height="774" loading="lazy"
+                 alt="Five 21Meals app screens: the daily plan with breakfast, lunch and dinner cards; a recipe detail page with ingredients and steps; the meal-replacement sheet; the weekly overview; and the generated grocery list." />
+          </div>
+        </a>
+      </figure>
+        </div>
+      </div>
+    </section>
+    <section class="cell prose" id="c-what-happened">
+      <div class="cell-label">markdown</div>
+      <h2>What happened</h2>
+        <p>
+          The web app reached <strong>600 users</strong>, spread across six continents. A much wider reach than
+          I expected for something I built to solve my own problem.
+        </p>
+        <p>
+          What that traffic made clear is that generating a single recipe was the easy half. People came back
+          wanting the whole week planned, which is why the mobile app is built around the plan rather than the
+          recipe: the weekly overview, the swap flow for the days you change your mind, and the grocery list
+          that falls out of both.
+        </p>
+        <p>
+          I&rsquo;m building that mobile app now, with a <strong>Tsai CITY funding grant</strong> from Yale to
+          help develop it.
+        </p>
+    </section>
+
+    <section class="cell" data-cell="next" id="c-next">
+      <div class="cell-in">
+        <div class="gutter"><span>In <span data-label></span></span><button class="run" type="button" aria-label="Run cell">▶</button></div>
+<pre class="code">aria.projects.<span class="fn">next</span>()</pre>
+      </div>
+      <div class="cell-out">
+        <div class="gutter">Out <span data-label></span></div>
+        <div class="contact">
+          <div class="contact-line"><a href="ad-engine.html">AI Ad Campaign Engine <em class="accent">→</em></a></div>
+          <div class="links">
+            <a class="pill primary" href="index.html#c-contact">get in touch ↗</a>
+            <a class="pill" href="index.html#c-proj">all projects</a>
+            <a class="pill" href="blog/blog.html">case studies</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>© 2026 aria barve · <a href="mailto:aria.barve@yale.edu">aria.barve@yale.edu</a></span>
+      <span>new haven · new york · chicago</span>
+    </footer>
+  </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
